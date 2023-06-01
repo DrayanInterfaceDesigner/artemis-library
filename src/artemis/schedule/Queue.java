@@ -28,7 +28,6 @@ public class Queue {
             this.add(e);
         }
     }
-
     private void _thread_PhysicsProcess() {
         if(this.entries == null) return;
         for(Entity e : this.entries) {
