@@ -24,6 +24,9 @@ public class Canvas {
     }
 
     public void render(Entity... entities) {
+        for(Entity e : entities) {
+            System.out.println("Canvas yea");
+        }
         this.context = new JPanel() {
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);

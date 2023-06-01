@@ -22,12 +22,14 @@ public class Game {
     public Game(int targetFPS){
         this.canvas = new Canvas(this.windowSize);
         this.queue = new Queue(this, this.canvas);
+        this.entities = new ArrayList<Entity>();
         this.timer = new Timer(1);
         this.targetFPS = targetFPS;
         this.frameDelay = Math.round(1000.0 / this.targetFPS);
     }
     public void run(){
         while(true) {
+            System.out.println(this.entities);
             this.time = this.timer.now();
 
             this.canvas.windowSize = this.windowSize;
@@ -56,6 +58,10 @@ public class Game {
 
     public long getDelta() {
         return delta;
+    }
+
+    public void add(Entity e) {
+        this.entities.add(e);
     }
 
 }
