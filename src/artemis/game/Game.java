@@ -52,6 +52,9 @@ public class Game {
         }
     }
 
+    public int[] getWindowSize(){
+        return this.windowSize;
+    }
     public Canvas getCanvas() {
         return canvas;
     }

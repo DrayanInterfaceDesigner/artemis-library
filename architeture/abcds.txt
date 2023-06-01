@@ -1,0 +1,24 @@
+for(x; x < c.len.x; x++)
+ for(y; y < c.len.y; y++)
+a = x * c.size.w
+b = y * c.size.h
+c = x+1 * c.size.w
+d = y+1 * c.size.w
+grid.add([a,b,c,d])
+
+for(i; i < grid.len; i++)
+ for(e : ent)
+if(e.center.x >= grid[i][0] &&
+e.center.x <= grid[i][2])
+ if(e.center.y >= grid[i][1] &&
+ e.center.y <= grid[i][3])
+grid.grid.add(e)
+
+
+isOnScreen
+     boolean a = ( this.position.x + this.size[0] ) >= 0;
+     boolean b = ( this.position.x + this.size[0] ) <= this.game.cameraSize()[0];
+     boolean c = ( this.position.y + this.size[0] ) >= 0;
+     boolean d = ( this.position.y + this.size[0] ) <= this.game.cameraSize()[1];
+     return a && b && c && d;
+    
