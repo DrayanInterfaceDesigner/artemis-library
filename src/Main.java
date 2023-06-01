@@ -1,4 +1,5 @@
 import artemis.Vector3;
+import artemis.game.Sprite;
 import artemis.game.StaticBody;
 import artemis.primitives.Quad;
 import artemis.primitives.Tri;
@@ -12,9 +13,15 @@ import java.awt.geom.Path2D;
 public class Main {
     public static void main(String[] args) {
 //        TODO:
-//        Keyboard
-//        Mouse
-//        Camera
+//        *Keyboard - -
+//        *Mouse - -
+//        Camera - -
+//        Sprite ok ok
+//        AnimatedSprite - -
+//        CollisionBox ok -
+//        RigidBody ok -
+//        KinematicBody ok -
+//        Grid - -
 //        Se pah GUI
 
 //        int scale = 150;
@@ -34,11 +41,20 @@ public class Main {
 
 
 //        render(quad);
-        Game g = new Game(1);
+        Game g = new Game(60);
         for(int x = 0; x < 2; x++) {
-            StaticBody b = new StaticBody(g, new Vector3(), new double[]{0,x});
+            StaticBody b = new StaticBody(g, new Vector3(50,50), new double[]{0,x});
             g.add(b);
         }
+//        Sprite s = new Sprite(g, new Vector3(50,50), new double[]{100, 100},
+//                new String[]{
+//                        "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite.jpg",
+//                        "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite2.png"
+//        });
+        Character kirby = new Character(g, new Vector3(50,50), new double[]{100, 100});
+        kirby.getReady();
+//        s.pushToGame();
+//        g.add(s);
         g.run();
 
     }

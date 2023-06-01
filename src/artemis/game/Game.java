@@ -64,7 +64,9 @@ public class Game {
     }
 
     public void add(Entity e) {
-        this.entities.add(e);
+        if(!this.entities.contains(e)) {
+            this.entities.add(e);
+        }
     }
 
 }

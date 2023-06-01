@@ -17,6 +17,7 @@ public abstract class Body extends Entity implements IEntity, IBody{
     public CollisionBox getHitBox(){
         return this.hitbox;
     }
+
     @Override
     public void _physicsProcess(long delta) {}
 
