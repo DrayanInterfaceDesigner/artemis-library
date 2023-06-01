@@ -213,3 +213,54 @@ public class Main {
 //        }
 //    }
 //}
+
+//
+//import javax.swing.*;
+//        import java.awt.*;
+//
+//public class Main {
+//    public static void main(String[] args) {
+//        JFrame frame = new JFrame();
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setSize(600, 600);
+//
+//        // Create a custom JPanel for rendering
+//        JPanel renderPanel = new JPanel() {
+//            @Override
+//            protected void paintComponent(Graphics g) {
+//                super.paintComponent(g);
+//                // Rendering logic here
+//            }
+//        };
+//
+//        frame.add(renderPanel);
+//        frame.setVisible(true);
+//
+//        // Desired frame rate (e.g., 60 frames per second)
+//        int targetFPS = 60;
+//
+//        // Calculate the delay between frames based on the target frame rate
+//        long targetFrameDelay = Math.round(1000.0 / targetFPS);
+//
+//        // Start the game loop
+//        while (true) {
+//            long startTime = System.currentTimeMillis();
+//
+//            // Perform game logic and update the renderPanel
+//
+//            renderPanel.repaint();
+//
+//            long elapsedTime = System.currentTimeMillis() - startTime;
+//            long sleepTime = targetFrameDelay - elapsedTime;
+//
+//            if (sleepTime > 0) {
+//                try {
+//                    Thread.sleep(sleepTime);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
+//}
+
