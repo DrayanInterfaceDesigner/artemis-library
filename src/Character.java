@@ -10,7 +10,8 @@ public class Character extends KinematicBody {
         super(game, position, size);
         this.skin = new Sprite(this.game, position, size, new String[]{
                 "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite.jpg",
-                "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite2.png"
+                "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite2.png",
+                "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite3.png"
         });
     }
 
@@ -23,7 +24,7 @@ public class Character extends KinematicBody {
     @Override
     public void _onReady() {
         super._onReady();
-        this.skin.currentFrame = 1;
+        this.skin.currentFrame = 2;
     }
 
     @Override
