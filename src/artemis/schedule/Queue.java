@@ -2,7 +2,7 @@ package artemis.schedule;
 
 import artemis.game.Entity;
 import artemis.game.Game;
-import artemis.render.Canvas;
+import artemis.render.Camera;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,10 +10,10 @@ import java.util.Iterator;
 public class Queue {
     private ArrayList<Entity> entries;
     private Game game;
-    private Canvas canvas;
-    public Queue (Game game, Canvas canvas) {
+    private Camera camera;
+    public Queue (Game game, Camera camera) {
         this.game = game;
-        this.canvas = canvas;
+        this.camera = camera;
         this.entries = new ArrayList<Entity>();
     }
     public void add(Entity e) {
@@ -28,31 +28,31 @@ public class Queue {
             this.add(e);
         }
     }
-    private void _thread_PhysicsProcess() {
+    private void _thread_PhysicsProcess(long delta) {
         if(this.entries == null) return;
         for(Entity e : this.entries) {
-            e._physicsProcess(this.game.getDelta());
+            e._physicsProcess(delta);
         }
     }
-    private void _thread_Process() {
+    private void _thread_Process(long delta) {
         if(this.entries == null) return;
         for(Entity e : this.entries) {
-            e._process(this.game.getDelta());
+            e._process(delta);
         }
     }
-    private void _thread_Render() {
+    private void _thread_Render(long delta) {
         if (this.entries == null) return;
         Iterator<Entity> iterator = this.entries.iterator();
         while (iterator.hasNext()) {
             Entity e = iterator.next();
-            this.game.getCanvas().render(e);
+            this.game.getCamera().render(e);
             iterator.remove();
         }
     }
-    public void execute() {
+    public void execute(long delta) {
         if(this.entries == null) return;
-        this._thread_PhysicsProcess();
-        this._thread_Process();
-        this._thread_Render();
+        this._thread_PhysicsProcess(delta);
+        this._thread_Process(       delta);
+        this._thread_Render(        delta);
     }
 }

@@ -7,6 +7,7 @@ import java.awt.*;
 public abstract class Entity implements IEntity{
     protected Game game;
     public Vector3 position;
+    protected Vector3 cameraPosition;
     protected double[] size;
     public Entity(Game game, Vector3 position, double[] size) {
         this.game = game;
@@ -21,6 +22,12 @@ public abstract class Entity implements IEntity{
         this._onReady();
         this.pushToGame();
     }
+
+
+    public void setCameraPosition(Vector3 position) {
+        this.cameraPosition = position;
+    }
+
     public abstract void _onReady();
     public abstract void _physicsProcess(long delta);
     public abstract void _process(long delta);

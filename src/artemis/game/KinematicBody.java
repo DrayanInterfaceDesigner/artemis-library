@@ -11,7 +11,7 @@ public class KinematicBody extends Body implements IEntity, IBody{
     }
 
     public void sayHi() {
-        System.out.println("Say hi!!!" + this.size);
+//        System.out.println("Say hi!!!" + this.size);
     }
 
     @Override

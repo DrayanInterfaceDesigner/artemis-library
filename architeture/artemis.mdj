@@ -254,7 +254,7 @@
 											"top": 655,
 											"width": 154.99072265625,
 											"height": 13,
-											"text": "-canvas: Canvas",
+											"text": "-camera: Canvas",
 											"horizontalAlignment": 0
 										},
 										{
@@ -570,7 +570,7 @@
 											"top": 550,
 											"width": 121.39892578125,
 											"height": 13,
-											"text": "-canvas: JFrame",
+											"text": "-camera: JFrame",
 											"horizontalAlignment": 0
 										},
 										{
@@ -886,7 +886,7 @@
 											"top": 580,
 											"width": 156.05712890625,
 											"height": 13,
-											"text": "-canvas: Canvas",
+											"text": "-camera: Canvas",
 											"horizontalAlignment": 0
 										}
 									],
@@ -2823,7 +2823,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGIc2e9uf57mEg="
 							},
-							"name": "canvas",
+							"name": "camera",
 							"visibility": "private",
 							"type": {
 								"$ref": "AAAAAAGIc2flhf6mNOs="
@@ -2939,7 +2939,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGIc2flhf6mNOs="
 							},
-							"name": "canvas",
+							"name": "camera",
 							"visibility": "private",
 							"type": "JFrame"
 						},
@@ -3046,7 +3046,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGIc2gJCv7RwEY="
 							},
-							"name": "canvas",
+							"name": "camera",
 							"visibility": "private",
 							"type": {
 								"$ref": "AAAAAAGIc2flhf6mNOs="

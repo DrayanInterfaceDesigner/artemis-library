@@ -1,8 +1,8 @@
 package artemis.game;
 
+import artemis.render.Camera;
 import artemis.schedule.Queue;
 import artemis.schedule.Timer;
-import artemis.render.Canvas;
 
 import java.util.ArrayList;
 
@@ -11,35 +11,42 @@ public class Game {
     private long time;
     private int targetFPS;
     private long timeSleep;
-    private long frameDelay;
     private long delta;
     private double timeScale;
     private Queue queue;
-    private Canvas canvas;
+    private Camera camera;
+    private long previousTime = 0;
+    private long updateRate;
     private int[] windowSize = {560, 440};
     private ArrayList<Entity> entities;
 
     public Game(int targetFPS){
-        this.canvas = new Canvas(this.windowSize);
-        this.queue = new Queue(this, this.canvas);
+        this.camera = new Camera(this.windowSize);
+        this.queue = new Queue(this, this.camera);
         this.entities = new ArrayList<Entity>();
         this.timer = new Timer(1);
         this.targetFPS = targetFPS;
-        this.frameDelay = Math.round(1000.0 / this.targetFPS);
+        this.updateRate = 1000/this.targetFPS;
     }
     public void run(){
         while(true) {
-            System.out.println(this.entities);
             this.time = this.timer.now();
+            this.delta = (long) ((this.time - this.previousTime));
+//            if((this.delta/1000) < this.updateRate) return;
 
-            this.canvas.windowSize = this.windowSize;
+            this.previousTime = this.time;
+
+//            System.out.println(this.entities);
+//            this.time = this.timer.now();
+
+            this.camera.windowSize = this.windowSize;
             this.queue.fill(this.entities);
-            this.queue.execute();
+            this.queue.execute((long) this.delta);
 
-            System.out.println("Time: " + this.time);
+//            System.out.println("Time: " + this.delta);
 
             this.delta = this.timer.now() - this.time;
-            this.timeSleep = this.frameDelay - this.delta;
+            this.timeSleep = this.updateRate - this.delta;
 
             if(this.timeSleep > 0) {
                 try {
@@ -55,8 +62,8 @@ public class Game {
     public int[] getWindowSize(){
         return this.windowSize;
     }
-    public Canvas getCanvas() {
-        return canvas;
+    public Camera getCamera() {
+        return camera;
     }
 
     public long getDelta() {

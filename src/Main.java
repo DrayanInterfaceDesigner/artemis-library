@@ -13,9 +13,9 @@ import java.awt.geom.Path2D;
 public class Main {
     public static void main(String[] args) {
 //        TODO:
-//        *Keyboard - -
-//        *Mouse - -
-//        Camera - -
+//        *Keyboard ok ok
+//        *Mouse ok ok
+//        Camera ok ok
 //        Sprite ok ok
 //        AnimatedSprite - -
 //        CollisionBox ok -
@@ -51,7 +51,9 @@ public class Main {
 //                        "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite.jpg",
 //                        "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite2.png"
 //        });
-        Character kirby = new Character(g, new Vector3(50,50), new double[]{100, 100});
+        Character kirby = new Character(g, new Vector3(250,250), new double[]{100, 100});
+        Block block = new Block(g, new Vector3(250,250), new double[]{800, 800});
+        block.getReady();
         kirby.getReady();
 //        s.pushToGame();
 //        g.add(s);
@@ -277,6 +279,77 @@ public class Main {
 //                }
 //            }
 //        }
+//    }
+//}
+
+
+//
+//import javax.swing.*;
+//        import java.awt.*;
+//
+//public class CameraSystemExample extends JPanel {
+//    private int cameraX;
+//    private int cameraY;
+//    private int objectX = 100;
+//    private int objectY = 100;
+//
+//    public CameraSystemExample() {
+//        setPreferredSize(new Dimension(800, 600));
+//        cameraX = 0;
+//        cameraY = 0;
+//    }
+//
+//    @Override
+//    protected void paintComponent(Graphics g) {
+//        super.paintComponent(g);
+//
+//        Graphics2D g2d = (Graphics2D) g.create();
+//
+//        // Translate the graphics object based on camera position
+//        g2d.translate(cameraX, cameraY);
+//
+//        // Draw objects or content at their original positions
+//        g2d.setColor(Color.RED);
+//        g2d.fillRect(objectX, objectY, 200, 200);
+//
+//        g2d.dispose();
+//    }
+//
+//    public void moveCamera(int dx, int dy) {
+//        cameraX += dx;
+//        cameraY += dy;
+//        repaint();
+//    }
+//
+//    public static void main(String[] args) {
+//        JFrame frame = new JFrame("Camera System Example");
+//        CameraSystemExample panel = new CameraSystemExample();
+//
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.add(panel);
+//        frame.pack();
+//        frame.setVisible(true);
+//
+//        panel.requestFocus(); // Request focus to receive key events
+//
+//        // Add a KeyListener to move the camera
+//        panel.addKeyListener(new KeyAdapter() {
+//            @Override
+//            public void keyPressed(KeyEvent e) {
+//                int key = e.getKeyCode();
+//                int speed = 10; // Adjust this value to change camera movement speed
+//
+//                if (key == KeyEvent.VK_LEFT) {
+//                    panel.moveCamera(-speed, 0);
+//                } else if (key == KeyEvent.VK_RIGHT) {
+//                    panel.moveCamera(speed, 0);
+//                } else if (key == KeyEvent.VK_UP) {
+//                    panel.moveCamera(0, -speed);
+//                } else if (key == KeyEvent.VK_DOWN) {
+//                    panel.moveCamera(0, speed);
+//                }
+//            }
+//        });
 //    }
 //}
 
