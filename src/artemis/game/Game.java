@@ -18,7 +18,7 @@ public class Game {
     private long previousTime = 0;
     private long updateRate;
     private int[] windowSize = {560, 440};
-    private ArrayList<Entity> entities;
+    public ArrayList<Entity> entities;
 
     public Game(int targetFPS){
         this.camera = new Camera(this.windowSize);

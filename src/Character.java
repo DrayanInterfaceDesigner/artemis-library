@@ -1,9 +1,7 @@
 import artemis.Vector3;
 import artemis.controller.KeyControl;
 import artemis.controller.MouseControl;
-import artemis.game.Game;
-import artemis.game.KinematicBody;
-import artemis.game.Sprite;
+import artemis.game.*;
 
 import java.awt.*;
 import java.awt.geom.Path2D;
@@ -17,18 +15,20 @@ public class Character extends KinematicBody {
         super(game, position, size);
         Vector3 center = new Vector3((int)(this.position.x - this.size[0]/2), (int)(this.position.y - this.size[1]/2));
         this.skin = new Sprite(this.game, this.center, size, new String[]{
-                "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite.jpg",
-                "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite2.png",
-                "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite3.png"
+                "C:\\Users\\PUCPR\\Desktop\\drayan\\projetos\\repo\\artemis-library\\src\\test\\assets\\sprite.jpg",
+                "C:\\Users\\PUCPR\\Desktop\\drayan\\projetos\\repo\\artemis-library\\src\\test\\assets\\sprite2.png",
+                "C:\\Users\\PUCPR\\Desktop\\drayan\\projetos\\repo\\artemis-library\\src\\test\\assets\\sprite3.png"
         });
         this.keyboard = new KeyControl(this.game);
         this.mouse = new MouseControl(this.game);
+        this.collisionBox = new CollisionBox(game, this.center, size, new Grid(), this);
     }
 
     @Override
     public void getReady() {
         this.skin.getReady();
         super.getReady();
+        this.collisionBox.getReady();
 //        this.skin.getReady();
     }
 
@@ -73,6 +73,7 @@ public class Character extends KinematicBody {
         if(keyboard.isKeyPressed('d')) {
             this.position.x += 1;
         }
+        this.collisionBox.isColliding();
 //
 //        if(this.lastDirection != null) {
 //            if(this.position.x != this.lastDirection.x) {

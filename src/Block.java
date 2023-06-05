@@ -1,8 +1,5 @@
 import artemis.Vector3;
-import artemis.game.Game;
-import artemis.game.RigidBody;
-import artemis.game.Sprite;
-import artemis.game.StaticBody;
+import artemis.game.*;
 
 import java.awt.*;
 
@@ -10,15 +7,17 @@ public class Block extends StaticBody {
     private Sprite skin;
     public Block(Game game, Vector3 position, double[] size) {
         super(game, position, size);
-        this.skin = new Sprite(this.game, position, size, new String[]{
-                "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite.jpg",
-                "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite2.png",
-                "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite3.png"
+        this.skin = new Sprite(this.game, this.center, size, new String[]{
+                "C:\\Users\\PUCPR\\Desktop\\drayan\\projetos\\repo\\artemis-library\\src\\test\\assets\\sprite.jpg",
+                "C:\\Users\\PUCPR\\Desktop\\drayan\\projetos\\repo\\artemis-library\\src\\test\\assets\\sprite2.png",
+                "C:\\Users\\PUCPR\\Desktop\\drayan\\projetos\\repo\\artemis-library\\src\\test\\assets\\sprite3.png"
         });
+        this.collisionBox = new CollisionBox(game, this.center, size, new Grid(), this);
     }
 
     @Override
     public void getReady() {
+        this.collisionBox.getReady();
         super.getReady();
         this.skin.getReady();
         this.skin.currentFrame = 0;

@@ -18,10 +18,10 @@ public class Main {
 //        Camera ok ok
 //        Sprite ok ok
 //        AnimatedSprite - -
-//        CollisionBox ok -
+//        CollisionBox ok ok~
 //        RigidBody ok -
 //        KinematicBody ok -
-//        Grid - -
+//        Grid ok -
 //        Se pah GUI
 
 //        int scale = 150;
