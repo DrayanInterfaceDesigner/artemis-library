@@ -31,6 +31,7 @@ public class Camera {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
+                g.translate((int)context.getWidth() / 2, (int)context.getHeight() /2);
                 Graphics2D ctx = (Graphics2D) g;
                 applyTranslation(ctx);
                 for (Entity e : entities) {

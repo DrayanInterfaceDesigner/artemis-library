@@ -51,7 +51,7 @@ public class Main {
 //                        "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite.jpg",
 //                        "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite2.png"
 //        });
-        Character kirby = new Character(g, new Vector3(250,250), new double[]{100, 100});
+        Character kirby = new Character(g, new Vector3(0,0), new double[]{100, 100});
         Block block = new Block(g, new Vector3(250,250), new double[]{800, 800});
         block.getReady();
         kirby.getReady();

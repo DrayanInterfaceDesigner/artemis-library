@@ -6,6 +6,7 @@ import artemis.game.KinematicBody;
 import artemis.game.Sprite;
 
 import java.awt.*;
+import java.awt.geom.Path2D;
 
 public class Character extends KinematicBody {
     private Sprite skin;
@@ -14,7 +15,8 @@ public class Character extends KinematicBody {
     private Vector3 lastDirection;
     public Character(Game game, Vector3 position, double[] size) {
         super(game, position, size);
-        this.skin = new Sprite(this.game, position, size, new String[]{
+        Vector3 center = new Vector3((int)(this.position.x - this.size[0]/2), (int)(this.position.y - this.size[1]/2));
+        this.skin = new Sprite(this.game, this.center, size, new String[]{
                 "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite.jpg",
                 "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite2.png",
                 "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite3.png"
@@ -25,15 +27,16 @@ public class Character extends KinematicBody {
 
     @Override
     public void getReady() {
-        super.getReady();
         this.skin.getReady();
+        super.getReady();
+//        this.skin.getReady();
     }
 
     @Override
     public void _onReady() {
         super._onReady();
         this.skin._onReady();
-        this.skin.currentFrame = 2;
+        this.skin.currentFrame = 1;
         keyboard.registerKey('w');
         keyboard.registerKey('a');
         keyboard.registerKey('s');
@@ -45,6 +48,8 @@ public class Character extends KinematicBody {
     @Override
     public void _physicsProcess(long delta) {
         super._physicsProcess(delta);
+        this.center.x = this.position.x - this.size[0]/2;
+        this.center.y = this.position.y - this.size[1]/2;
 //        System.out.println(mouse.clicked("left"));
 
         if(mouse.clicked("left")) {
@@ -95,5 +100,11 @@ public class Character extends KinematicBody {
     @Override
     public void render(Graphics2D ctx) {
         super.render(ctx);
+        System.out.println(this.cameraPosition.x + " " + this.cameraPosition.y);
+//        ctx.translate(+300, +300);
+        ctx.setColor(new Color(255, 0, 0));
+//        (int)this.position.x, (int)this.position.y, 25, 25, 0, 360
+//        ctx.fillRect((int)(this.position.x - this.size[0]/2), (int)(this.position.y - this.size[1]/2), (int)this.size[0], (int)this.size[1]);
+
     }
 }
