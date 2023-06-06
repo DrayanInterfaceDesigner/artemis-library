@@ -58,6 +58,9 @@ public class Character extends KinematicBody {
             System.out.println(this.skin.isHidden());
             System.out.println("pressed");
             this.position.y -= 1;
+
+
+
         }
         if(keyboard.keyJustReleased('w')) {
             System.out.println("just released");

@@ -72,4 +72,8 @@ public class Sprite extends Entity implements IEntity {
     public boolean isOnScreen() {
         return false;
     }
+
+    public int getFramesLength() {
+        return this.frames.size();
+    }
 }
