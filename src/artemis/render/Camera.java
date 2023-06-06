@@ -47,6 +47,9 @@ public class Camera {
 
     public void render(Entity... entities) {
         for(Entity e : entities) {
+            if(e.isHidden()) {
+                System.out.println("is hidden");
+            }
 //            System.out.println("Canvas yea");
             e.setCameraPosition(this.position);
             if(!this.entities.contains(e)){

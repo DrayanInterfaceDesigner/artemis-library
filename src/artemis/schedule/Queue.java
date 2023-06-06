@@ -45,7 +45,9 @@ public class Queue {
         Iterator<Entity> iterator = this.entries.iterator();
         while (iterator.hasNext()) {
             Entity e = iterator.next();
-            this.game.getCamera().render(e);
+            if(!(e.isHidden())) {
+                this.game.getCamera().render(e);
+            }
             iterator.remove();
         }
     }

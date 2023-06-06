@@ -15,21 +15,16 @@ public class Character extends KinematicBody {
         super(game, position, size);
         Vector3 center = new Vector3((int)(this.position.x - this.size[0]/2), (int)(this.position.y - this.size[1]/2));
         this.skin = new Sprite(this.game, this.center, size, new String[]{
-                "C:\\Users\\PUCPR\\Desktop\\drayan\\projetos\\repo\\artemis-library\\src\\test\\assets\\sprite.jpg",
-                "C:\\Users\\PUCPR\\Desktop\\drayan\\projetos\\repo\\artemis-library\\src\\test\\assets\\sprite2.png",
-                "C:\\Users\\PUCPR\\Desktop\\drayan\\projetos\\repo\\artemis-library\\src\\test\\assets\\sprite3.png"
+                "src/test/assets/sprite.jpg",
+                "src/test/assets/sprite2.png",
+                "src/test/assets/sprite3.png",
+                "src/test/assets/sprite4.jpg"
         });
         this.keyboard = new KeyControl(this.game);
         this.mouse = new MouseControl(this.game);
         this.collisionBox = new CollisionBox(game, this.center, size, new Grid(), this);
-    }
-
-    @Override
-    public void getReady() {
-        this.skin.getReady();
-        super.getReady();
-        this.collisionBox.getReady();
-//        this.skin.getReady();
+        this.addChild(this.skin);
+        this.addChild(this.collisionBox);
     }
 
     @Override
@@ -42,7 +37,7 @@ public class Character extends KinematicBody {
         keyboard.registerKey('s');
         keyboard.registerKey('d');
         mouse.registerButton("left", 1);
-        mouse.registerButton("right", 3);
+        mouse.registerButton("ehofimas", 3);
     }
 
     @Override
@@ -56,7 +51,11 @@ public class Character extends KinematicBody {
             Vector3 pos = mouse.getClickPosition();
             this.lastDirection = new Vector3(pos.x, pos.y);
         }
+
         if(keyboard.isKeyPressed('w')) {
+            this.hide(true);
+            this.skin.hide(true);
+            System.out.println(this.skin.isHidden());
             System.out.println("pressed");
             this.position.y -= 1;
         }
@@ -74,6 +73,9 @@ public class Character extends KinematicBody {
             this.position.x += 1;
         }
         this.collisionBox.isColliding();
+//        this.destroy();
+
+
 //
 //        if(this.lastDirection != null) {
 //            if(this.position.x != this.lastDirection.x) {
@@ -95,13 +97,21 @@ public class Character extends KinematicBody {
     public void _process(long delta) {
         super._process(delta);
         this.game.getCamera().follow(this);
+        if(mouse.clicked("ehofimas")) {
+//            this.hide(true);
+            if(this.skin.currentFrame >= 3) {
+                this.skin.currentFrame = 0;
+            }
+            else {
+                this.skin.currentFrame++;
+            }
+        }
 //        this.skin.currentFrame = 1;
     }
 
     @Override
     public void render(Graphics2D ctx) {
         super.render(ctx);
-        System.out.println(this.cameraPosition.x + " " + this.cameraPosition.y);
 //        ctx.translate(+300, +300);
         ctx.setColor(new Color(255, 0, 0));
 //        (int)this.position.x, (int)this.position.y, 25, 25, 0, 360

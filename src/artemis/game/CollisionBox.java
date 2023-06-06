@@ -64,16 +64,6 @@ public class CollisionBox extends Entity implements IEntity{
         return null;
     }
 
-    public boolean calcRoughInternalIntersection(Entity target) {
-        if(this.position.x + this.size[0] >= target.position.x
-                && this.position.x + this.size[0] <= target.position.x + target.size[0]) {
-            System.out.println(this.position.x + this.size[0] + "/" +target.position.x + " " + this.position.x + this.size[0] + "/" + target.position.x + target.size[0]);
-            return this.position.y + this.size[1] >= target.position.y
-                    && this.position.y + this.size[1] <= target.position.y + target.size[1];
-        }
-        return false;
-    }
-
     public boolean checkCollision(Entity target) {
         if(target.collisionBox == null) return false;
         double[][] polyA = this.calcBoundingBox();
@@ -104,12 +94,11 @@ public class CollisionBox extends Entity implements IEntity{
     public boolean isColliding(){
         int collCounter = 0;
 //        this.collisionGrid.getCell(this.entity)
-        for(Entity e : this.game.entities) {
+        for(Entity e : this.game.getEntities()) {
             if(this.entity == e) continue;
             if(this.checkCollision(e)) {
                 addCollision(e);
                 collCounter++;
-                System.out.println("Entity collided: " + e);
             }
             else {
                 if(this.collidingWith.contains(e)) {

@@ -18,7 +18,7 @@ public class Game {
     private long previousTime = 0;
     private long updateRate;
     private int[] windowSize = {560, 440};
-    public ArrayList<Entity> entities;
+    private ArrayList<Entity> entities;
 
     public Game(int targetFPS){
         this.camera = new Camera(this.windowSize);
@@ -29,6 +29,10 @@ public class Game {
         this.updateRate = 1000/this.targetFPS;
     }
     public void run(){
+        this.entities = this.flatEntities();
+        for(Entity e : entities) {
+            System.out.println(e);
+        }
         while(true) {
             this.time = this.timer.now();
             this.delta = (long) ((this.time - this.previousTime));
@@ -38,7 +42,6 @@ public class Game {
 
 //            System.out.println(this.entities);
 //            this.time = this.timer.now();
-
             this.camera.windowSize = this.windowSize;
             this.queue.fill(this.entities);
             this.queue.execute((long) this.delta);
@@ -74,6 +77,31 @@ public class Game {
         if(!this.entities.contains(e)) {
             this.entities.add(e);
         }
+    }
+    public void destroy(Entity e) {
+        if(this.entities.contains(e)) {
+            System.out.println("destroy: " + e + "\n");
+            this.entities.remove(e);
+            for(Entity i : entities) {
+                System.out.println(i);
+            }
+        }
+    }
+    public ArrayList<Entity> getEntities() {
+        return this.entities;
+    }
+
+    public ArrayList<Entity> flatEntities(){
+        ArrayList<Entity> flattened = new ArrayList<>();
+        for(Entity e : this.entities) {
+            flattened.add(e);
+            if(e.getChildren() != null) {
+                for(Entity child : e.getChildren()) {
+                    flattened.add(child);
+                }
+            }
+        }
+        return flattened;
     }
 
 }
