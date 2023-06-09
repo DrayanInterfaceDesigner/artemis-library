@@ -1,19 +1,19 @@
-import artemis.Vector3;
+import artemis.Vector2;
+import artemis.arithmetic.ArtemisMath;
 import artemis.controller.KeyControl;
 import artemis.controller.MouseControl;
 import artemis.game.*;
 
 import java.awt.*;
-import java.awt.geom.Path2D;
 
 public class Character extends KinematicBody {
     private Sprite skin;
     private KeyControl keyboard;
     private MouseControl mouse;
-    private Vector3 lastDirection;
-    public Character(Game game, Vector3 position, double[] size) {
+    private Vector2 lastDirection;
+    public Character(Game game, Vector2 position, double[] size) {
         super(game, position, size);
-        Vector3 center = new Vector3((int)(this.position.x - this.size[0]/2), (int)(this.position.y - this.size[1]/2));
+        Vector2 center = new Vector2((int)(this.position.x - this.size[0]/2), (int)(this.position.y - this.size[1]/2));
         this.skin = new Sprite(this.game, this.center, size, new String[]{
                 "src/test/assets/sprite.jpg",
                 "src/test/assets/sprite2.png",
@@ -22,7 +22,7 @@ public class Character extends KinematicBody {
         });
         this.keyboard = new KeyControl(this.game);
         this.mouse = new MouseControl(this.game);
-        this.collisionBox = new CollisionBox(game, this.center, size, new Grid(), this);
+        this.collisionBox = new CollisionBox(game, this.position, size, new Grid(), this);
         this.addChild(this.skin);
         this.addChild(this.collisionBox);
     }
@@ -41,15 +41,15 @@ public class Character extends KinematicBody {
     }
 
     @Override
-    public void _physicsProcess(long delta) {
+    public void _physicsProcess(double delta) {
+        int speed = 5;
         super._physicsProcess(delta);
-        this.center.x = this.position.x - this.size[0]/2;
-        this.center.y = this.position.y - this.size[1]/2;
 //        System.out.println(mouse.clicked("left"));
 
+
         if(mouse.clicked("left")) {
-            Vector3 pos = mouse.getClickPosition();
-            this.lastDirection = new Vector3(pos.x, pos.y);
+            Vector2 pos = mouse.getClickPosition();
+            this.lastDirection = new Vector2(pos.x, pos.y);
         }
 
         if(keyboard.isKeyPressed('w')) {
@@ -57,25 +57,22 @@ public class Character extends KinematicBody {
             this.skin.hide(true);
             System.out.println(this.skin.isHidden());
             System.out.println("pressed");
-            this.position.y -= 1;
-
-
-
-        }
-        if(keyboard.keyJustReleased('w')) {
-            System.out.println("just released");
-            this.position.y -= 1;
+            this.position.y -= (speed);
         }
         if(keyboard.isKeyPressed('s')) {
-            this.position.y += 1;
+            this.position.y += (speed);
         }
         if(keyboard.isKeyPressed('a')) {
-            this.position.x -= 1;
+            this.position.x -= (speed) ;
         }
         if(keyboard.isKeyPressed('d')) {
-            this.position.x += 1;
+            this.position.x += (speed);
         }
-        this.collisionBox.isColliding();
+//        if(keyboard.isKeyPressed('d')) {
+////            this.position.x += (1* speed);
+////        }
+//        System.out.println(this.center.x + " " + this.center.y);
+//        System.out.println(this.collisionBox.position.x + " " + this.collisionBox.position.y);
 //        this.destroy();
 
 
@@ -97,7 +94,7 @@ public class Character extends KinematicBody {
     }
 
     @Override
-    public void _process(long delta) {
+    public void _process(double delta) {
         super._process(delta);
         this.game.getCamera().follow(this);
         if(mouse.clicked("ehofimas")) {

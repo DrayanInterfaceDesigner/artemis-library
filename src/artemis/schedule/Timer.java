@@ -21,4 +21,7 @@ public class Timer {
         this.currentTime = System.currentTimeMillis();
         return this.currentTime;
     }
+    public long preciseNow() {
+        return System.nanoTime();
+    }
 }

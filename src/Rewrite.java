@@ -1,5 +1,3 @@
-package artemis.game;
-
 import artemis.game.Entity;
 import artemis.render.Camera;
 import artemis.schedule.Queue;
@@ -7,7 +5,7 @@ import artemis.schedule.Timer;
 
 import java.util.ArrayList;
 
-public class Game implements Runnable{
+public class Rewrite implements Runnable{
     private final int TARGET_FPS;
     private int currentFPS;
     private long currentTime;
@@ -17,9 +15,8 @@ public class Game implements Runnable{
     private double timeScale;
     private double delta;
     private volatile boolean running;
-    private boolean debug;
     private Thread MAIN_THREAD;
-    private Timer timer;
+    public Timer timer;
     private Queue queue;
     private Camera camera;
     private int[] windowSize = {560, 440};
@@ -27,37 +24,30 @@ public class Game implements Runnable{
 
 
     private int heyOh = 0;
-
-    public Game(int targetFPS){
+    public Rewrite(int targetFps) {
         this.camera = new Camera(this.windowSize);
-        this.queue = new Queue(this, this.camera);
+//        this.queue = new Queue(this, this.camera);
         this.entities = new ArrayList<Entity>();
+        this.TARGET_FPS = targetFps;
         this.timer = new Timer(1);
-
-        this.TARGET_FPS = targetFPS;
         this.currentFPS = 0;
         this.nanoPerUpdate = 1000000000.0 / TARGET_FPS;
     }
-    public void run(){
-        this.entities = this.flatEntities();
-        for(Entity e : entities) {
-            System.out.println(e);
-        }
-
+    public void run() {
 //      Setting Timers and Delta
         this.FPSCountTimer = System.currentTimeMillis();
         this.lastTime = System.nanoTime();
 
-        while(running) {
+        while (running) {
 //          Resets timers and calculate delta
             long currentTime = System.nanoTime();
-            this.delta += (currentTime - lastTime) / nanoPerUpdate;
+            delta += (currentTime - lastTime) / nanoPerUpdate;
             lastTime = currentTime;
 
 //          Updating Artemis
-            while (this.delta >= 1) {
-                update(this.delta);
-                this.delta--;
+            while (delta >= 1) {
+                update(delta);
+                delta--;
             }
 
 //          Updating current FPS
@@ -69,7 +59,7 @@ public class Game implements Runnable{
                 FPSCountTimer = System.currentTimeMillis();
             }
 
-//          FPS Limiter
+            // FPS Limiter
             long elapsedTime = System.nanoTime() - currentTime;
             long sleepTime = (1000000000L / TARGET_FPS) - elapsedTime;
 
@@ -82,12 +72,11 @@ public class Game implements Runnable{
             }
         }
     }
-
     private void update(double delta) {
-        this.camera.windowSize = this.windowSize;
-        this.queue.fill(this.entities);
-        this.queue.execute(delta/100);
-//        System.out.println("Speed: " + 60 * delta +"Heyoh: " + this.heyOh + "Delta: " + delta + "/" + this.delta);
+//        this.camera.windowSize = this.windowSize;
+//        this.queue.fill(this.entities);
+//        this.queue.execute((long) this.delta);
+        System.out.println("Speed: " + 60 * delta +"Heyoh: " + this.heyOh + "Delta: " + delta);
         heyOh++;
     }
     public synchronized void start(){
@@ -118,11 +107,9 @@ public class Game implements Runnable{
     public Camera getCamera() {
         return camera;
     }
-
-    public double getDelta() {
-        return delta;
-    }
-
+//    public long getDelta() {
+//        return delta;
+//    }
     public void add(Entity e) {
         if(!this.entities.contains(e)) {
             this.entities.add(e);
@@ -140,7 +127,6 @@ public class Game implements Runnable{
     public ArrayList<Entity> getEntities() {
         return this.entities;
     }
-
     public ArrayList<Entity> flatEntities(){
         ArrayList<Entity> flattened = new ArrayList<>();
         for(Entity e : this.entities) {
@@ -154,4 +140,8 @@ public class Game implements Runnable{
         return flattened;
     }
 
+    public static void main(String[] args) {
+        Rewrite game = new Rewrite(60);
+        game.start();
+    }
 }

@@ -1,24 +1,24 @@
 package artemis.game;
 
-import artemis.Vector3;
+import artemis.Vector2;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class Entity implements IEntity{
     protected Game game;
-    public Vector3 position;
-    public Vector3 center;
-    protected Vector3 cameraPosition;
+    public Vector2 position;
+    public Vector2 center;
+    protected Vector2 cameraPosition;
     private boolean hidden;
     public CollisionBox collisionBox;
     private ArrayList<Entity> children;
     protected double[] size;
-    public Entity(Game game, Vector3 position, double[] size) {
+    public Entity(Game game, Vector2 position, double[] size) {
         this.game = game;
         this.position = position;
         this.size = size;
-        this.center = new Vector3(
+        this.center = new Vector2(
                 this.position.x - this.size[0]/2,
                 this.position.y - this.size[1]/2
         );
@@ -28,7 +28,7 @@ public abstract class Entity implements IEntity{
     public void pushToGame() {
         this.game.add(this);
     }
-    public void setCameraPosition(Vector3 position) {
+    public void setCameraPosition(Vector2 position) {
         this.cameraPosition = position;
     }
     public void getReady() {
@@ -37,8 +37,8 @@ public abstract class Entity implements IEntity{
         this._onReady();
     }
     public abstract void _onReady();
-    public abstract void _physicsProcess(long delta);
-    public abstract void _process(long delta);
+    public abstract void _physicsProcess(double delta);
+    public abstract void _process(double delta);
     public abstract void render(Graphics2D ctx);
 
     public boolean isHidden() {

@@ -1,8 +1,8 @@
 package artemis.arithmetic;
 
-import artemis.Vector3;
+import artemis.Vector2;
 
-public class VectorOffset extends Vector3 {
+public class VectorOffset extends Vector2 {
     public double offset;
     public VectorOffset(double x, double y, double offset) {
         super(x, y);

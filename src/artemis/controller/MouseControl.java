@@ -1,6 +1,6 @@
 package artemis.controller;
 
-import artemis.Vector3;
+import artemis.Vector2;
 import artemis.game.Game;
 
 import java.awt.event.MouseEvent;
@@ -11,14 +11,14 @@ import java.util.Map;
 public class MouseControl implements MouseListener {
     public MouseEventReturnee mouseEventReturnee;
     private MouseEventReturnee mouseEventReturneeZERO;
-    private Vector3 clickPosition;
+    private Vector2 clickPosition;
     private Map<String, Integer> buttonMap;
     private Map<Integer, Boolean> buttonClickStateMap;
     private Map<Integer, Boolean> buttonPressStateMap;
     private Game game;
     public MouseControl(Game game) {
         this.mouseEventReturneeZERO = new MouseEventReturnee(
-                new Vector3(-1, -1),
+                new Vector2(-1, -1),
                 false,
                 false,
                 false,
@@ -81,7 +81,7 @@ public class MouseControl implements MouseListener {
     }
     public void resetMouseEventReturnee() {
         MouseEventReturnee ZERO = new MouseEventReturnee(
-                new Vector3(-1, -1),
+                new Vector2(-1, -1),
                 false,
                 false,
                 false,
@@ -110,7 +110,7 @@ public class MouseControl implements MouseListener {
         }
         this.mouseEventReturnee.setClickCount(e.getClickCount());
         this.mouseEventReturnee.setButton(button);
-        this.mouseEventReturnee.setClickedAt(new Vector3(x, y));
+        this.mouseEventReturnee.setClickedAt(new Vector2(x, y));
         this.mouseEventReturnee.setTarget(e.getSource());
 
         int buttonNum = e.getButton();
@@ -118,7 +118,7 @@ public class MouseControl implements MouseListener {
             buttonClickStateMap.put(buttonNum, true);
         }
 
-        this.clickPosition = new Vector3(x, y);
+        this.clickPosition = new Vector2(x, y);
     }
     @Override
     public void mousePressed(MouseEvent e) {
@@ -145,7 +145,7 @@ public class MouseControl implements MouseListener {
         // Invoked when the mouse exits a component
     }
 
-    public Vector3 getClickPosition() {
+    public Vector2 getClickPosition() {
         return clickPosition;
     }
 }

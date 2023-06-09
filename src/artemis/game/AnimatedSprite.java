@@ -1,6 +1,6 @@
 package artemis.game;
 
-import artemis.Vector3;
+import artemis.Vector2;
 import artemis.schedule.Timer;
 
 import java.awt.*;
@@ -11,7 +11,7 @@ public class AnimatedSprite extends Entity{
     private int currentAnimation;
     private Sprite currentSprite;
     private Timer time;
-    public AnimatedSprite(Game game, Vector3 position, double[] size) {
+    public AnimatedSprite(Game game, Vector2 position, double[] size) {
         super(game, position, size);
         this.animations = new ArrayList<>();
 
@@ -22,12 +22,12 @@ public class AnimatedSprite extends Entity{
         );
     }
     private void changeNextFrame() {
-        if(this.time.nextSecond()) {
-            if(!(this.currentSprite.currentFrame+1 > this.currentSprite.getFramesLength())) {
-                this.currentSprite.currentFrame = this.currentSprite.currentFrame+1;
-            }
-            else this.currentSprite.currentFrame = 0;
-        }
+//        if(this.time.nextSecond()) {
+//            if(!(this.currentSprite.currentFrame+1 > this.currentSprite.getFramesLength())) {
+//                this.currentSprite.currentFrame = this.currentSprite.currentFrame+1;
+//            }
+//            else this.currentSprite.currentFrame = 0;
+//        }
     }
     @Override
     public void _onReady() {
@@ -40,12 +40,12 @@ public class AnimatedSprite extends Entity{
     }
 
     @Override
-    public void _physicsProcess(long delta) {
+    public void _physicsProcess(double delta) {
 
     }
 
     @Override
-    public void _process(long delta) {
+    public void _process(double delta) {
 
     }
     @Override

@@ -1,15 +1,13 @@
 package artemis.game;
 
-import artemis.Vector3;
-
-import java.util.ArrayList;
+import artemis.Vector2;
 
 public class Animation {
     private Sprite sprite;
     public int fps;
     private String alias;
 
-    public Animation(Game game, Vector3 position, double[] size, String alias, int fps, String[] frames) {
+    public Animation(Game game, Vector2 position, double[] size, String alias, int fps, String[] frames) {
         this.sprite = new Sprite(game, position, size, frames);
         this.fps = fps;
         this.alias = alias;

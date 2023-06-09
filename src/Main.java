@@ -1,9 +1,6 @@
-import artemis.Vector3;
-import artemis.game.Sprite;
-import artemis.game.StaticBody;
+import artemis.Vector2;
 import artemis.primitives.Quad;
 import artemis.primitives.Tri;
-import artemis.primitives.Vertex;
 import artemis.game.Game;
 
 import javax.swing.*;
@@ -17,12 +14,14 @@ public class Main {
 //        *Mouse ok ok
 //        Camera ok ok
 //        Sprite ok ok
-//        AnimatedSprite - -
-//        CollisionBox ok ok~
+//        FixDeltaTime - -
+//        AnimatedSprite ok -
+//        CollisionBox ok ok
+//        StaticBody ok ok
 //        RigidBody ok -
 //        KinematicBody ok -
 //        Grid ok -
-//        Se pah GUI
+//        GUI - Text / Button  - -
 
 //        int scale = 150;
 //        Tri tri1 = new Tri(
@@ -41,23 +40,19 @@ public class Main {
 
 
 //        render(quad);
-        Game g = new Game(60);
-        for(int x = 0; x < 2; x++) {
-            StaticBody b = new StaticBody(g, new Vector3(50,50), new double[]{0,x});
-            g.add(b);
-        }
+        Game g = new Game(120);
 //        Sprite s = new Sprite(g, new Vector3(50,50), new double[]{100, 100},
 //                new String[]{
 //                        "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite.jpg",
 //                        "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite2.png"
 //        });
-        Character kirby = new Character(g, new Vector3(0,0), new double[]{100, 100});
-        Block block = new Block(g, new Vector3(250,250), new double[]{800, 800});
+        Character kirby = new Character(g, new Vector2(-100,100), new double[]{100, 100});
+        Block block = new Block(g, new Vector2(100,100), new double[]{200, 200});
         block.getReady();
         kirby.getReady();
 //        s.pushToGame();
 //        g.add(s);
-        g.run();
+        g.start();
 
     }
 

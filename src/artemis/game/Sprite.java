@@ -1,6 +1,6 @@
 package artemis.game;
 
-import artemis.Vector3;
+import artemis.Vector2;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,7 +14,7 @@ public class Sprite extends Entity implements IEntity {
     private ArrayList<BufferedImage> frames;
     public int currentFrame;
 
-    public Sprite(Game game, Vector3 position, double[] size, String[] frames) {
+    public Sprite(Game game, Vector2 position, double[] size, String[] frames) {
         super(game, position, size);
         this.paths = frames;
         this.currentFrame = 0;
@@ -47,12 +47,12 @@ public class Sprite extends Entity implements IEntity {
     public void _onReady() {}
 
     @Override
-    public void _physicsProcess(long delta) {
+    public void _physicsProcess(double delta) {
 //        this.position.x += 1;
     }
 
     @Override
-    public void _process(long delta) {
+    public void _process(double delta) {
 //        this.currentFrame = 1;
     }
 

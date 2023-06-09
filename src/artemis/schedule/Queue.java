@@ -28,19 +28,19 @@ public class Queue {
             this.add(e);
         }
     }
-    private void _thread_PhysicsProcess(long delta) {
+    private void _thread_PhysicsProcess(double delta) {
         if(this.entries == null) return;
         for(Entity e : this.entries) {
             e._physicsProcess(delta);
         }
     }
-    private void _thread_Process(long delta) {
+    private void _thread_Process(double delta) {
         if(this.entries == null) return;
         for(Entity e : this.entries) {
             e._process(delta);
         }
     }
-    private void _thread_Render(long delta) {
+    private void _thread_Render(double delta) {
         if (this.entries == null) return;
         Iterator<Entity> iterator = this.entries.iterator();
         while (iterator.hasNext()) {
@@ -51,7 +51,7 @@ public class Queue {
             iterator.remove();
         }
     }
-    public void execute(long delta) {
+    public void execute(double delta) {
         if(this.entries == null) return;
         this._thread_PhysicsProcess(delta);
         this._thread_Process(       delta);

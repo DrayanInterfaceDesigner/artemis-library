@@ -1,12 +1,12 @@
 package artemis.game;
 
-import artemis.Vector3;
+import artemis.Vector2;
 
 import java.awt.*;
 
 public class KinematicBody extends Body implements IEntity, IBody{
 
-    public KinematicBody(Game game, Vector3 position, double[] size) {
+    public KinematicBody(Game game, Vector2 position, double[] size) {
         super(game, position, size);
     }
 
@@ -19,26 +19,17 @@ public class KinematicBody extends Body implements IEntity, IBody{
         return false;
     }
 
-    @Override
-    public void setHitBox(CollisionBox hitbox) {
-        super.setHitBox(hitbox);
-    }
-
-    @Override
-    public CollisionBox getHitBox() {
-        return super.getHitBox();
-    }
 
     @Override
     public void _onReady() {}
     @Override
-    public void _physicsProcess(long delta) {
+    public void _physicsProcess(double delta) {
         super._physicsProcess(delta);
         this.sayHi();
     }
 
     @Override
-    public void _process(long delta) {
+    public void _process(double delta) {
         super._process(delta);
         this.sayHi();
     }

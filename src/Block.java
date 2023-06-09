@@ -1,11 +1,11 @@
-import artemis.Vector3;
+import artemis.Vector2;
 import artemis.game.*;
 
 import java.awt.*;
 
 public class Block extends StaticBody {
     private Sprite skin;
-    public Block(Game game, Vector3 position, double[] size) {
+    public Block(Game game, Vector2 position, double[] size) {
         super(game, position, size);
         this.skin = new Sprite(this.game, this.center, size, new String[]{
                 "src/test/assets/sprite.jpg",
@@ -22,6 +22,12 @@ public class Block extends StaticBody {
         super.getReady();
         this.skin.getReady();
         this.skin.currentFrame = 0;
+    }
+
+    @Override
+    public void _physicsProcess(double delta) {
+        super._physicsProcess(delta);
+//        System.out.println("Block: " + this.position.x + "//" + this.position.y);
     }
 
     @Override

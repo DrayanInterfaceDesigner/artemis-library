@@ -1,6 +1,6 @@
 package artemis.render;
 
-import artemis.Vector3;
+import artemis.Vector2;
 import artemis.game.Entity;
 
 import javax.swing.*;
@@ -13,7 +13,7 @@ public class Camera {
     public int windowSize[];
     private JPanel context;
     private ArrayList<Entity> entities;
-    private Vector3 position;
+    private Vector2 position;
     private ArrayList<JPanel> layers;
 
     public Camera(int windowSize[]) {
@@ -21,7 +21,7 @@ public class Camera {
         this.container = this.canvas.getContentPane();
         this.windowSize = windowSize;
         this.entities = new ArrayList<>();
-        this.position = new Vector3(0,0);
+        this.position = new Vector2(0,0);
 
         this.canvas.setSize(this.windowSize[0], this.windowSize[1]);
         this.canvas.setVisible(true);
@@ -88,7 +88,7 @@ public class Camera {
     public JFrame getCanvas() {
         return canvas;
     }
-    public Vector3 getPosition () {
+    public Vector2 getPosition () {
         return this.position;
     }
 }

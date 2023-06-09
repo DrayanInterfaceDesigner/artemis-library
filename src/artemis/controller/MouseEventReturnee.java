@@ -1,9 +1,9 @@
 package artemis.controller;
 
-import artemis.Vector3;
+import artemis.Vector2;
 
 public class MouseEventReturnee {
-    private Vector3 clickedAt;
+    private Vector2 clickedAt;
     private boolean RIGHT;
     private boolean LEFT;
     private boolean MIDDLE;
@@ -11,7 +11,7 @@ public class MouseEventReturnee {
     private int clickCount;
     private Object target;
     public MouseEventReturnee(
-            Vector3 clickedAt,
+            Vector2 clickedAt,
             boolean RIGHT,
             boolean LEFT,
             boolean MIDDLE,
@@ -32,7 +32,7 @@ public class MouseEventReturnee {
     public int getClickCount() {
         return clickCount;
     }
-    public Vector3 getClickedAt() {
+    public Vector2 getClickedAt() {
         return clickedAt;
     }
     public Object getTarget() {
@@ -59,7 +59,7 @@ public class MouseEventReturnee {
         this.clickCount = clickCount;
     }
 
-    public void setClickedAt(Vector3 clickedAt) {
+    public void setClickedAt(Vector2 clickedAt) {
         this.clickedAt = clickedAt;
     }
 

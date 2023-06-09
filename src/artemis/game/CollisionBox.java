@@ -1,6 +1,6 @@
 package artemis.game;
 
-import artemis.Vector3;
+import artemis.Vector2;
 import artemis.arithmetic.ArtemisMath;
 import artemis.arithmetic.VectorOffset;
 
@@ -15,8 +15,8 @@ public class CollisionBox extends Entity implements IEntity{
     public Color color;
     public ArrayList<Entity> collidingWith;
     public double lastCollisionOffset;
-    public CollisionBox(Game game, Vector3 position, double[] size, Grid collisionGrid, Entity entity) {
-        super(game, position, size);
+    public CollisionBox(Game game, Vector2 position, double[] size, Grid collisionGrid, Entity entity) {
+        super(game, entity.center, size);
         this.collisionGrid = collisionGrid;
         this.entity = entity;
         this.boundingBox = this.calcBoundingBox();
@@ -68,10 +68,7 @@ public class CollisionBox extends Entity implements IEntity{
         if(target.collisionBox == null) return false;
         double[][] polyA = this.calcBoundingBox();
         double[][] polyB = target.collisionBox.calcBoundingBox();
-        double[] a = polyA[0];
-        double[] b = polyA[1];
-        double[] c = polyB[0];
-        double[] d = polyB[1];
+
         for(int i = 0; i < polyA.length; i++) {
             for(int k = 0; k < polyB.length; k++) {
                 VectorOffset touch = this.calcLineIntersection(
@@ -96,6 +93,7 @@ public class CollisionBox extends Entity implements IEntity{
 //        this.collisionGrid.getCell(this.entity)
         for(Entity e : this.game.getEntities()) {
             if(this.entity == e) continue;
+            if(!(e instanceof Body)) continue;
             if(this.checkCollision(e)) {
                 addCollision(e);
                 collCounter++;
@@ -117,11 +115,12 @@ public class CollisionBox extends Entity implements IEntity{
     public void _onReady() {}
 
     @Override
-    public void _physicsProcess(long delta) {
-
+    public void _physicsProcess(double delta) {
+        this.center.x = this.position.x - this.size[0]/2;
+        this.center.y = this.position.y - this.size[1]/2;
     }
     @Override
-    public void _process(long delta) {
+    public void _process(double delta) {
         this.boundingBox = this.calcBoundingBox();
     }
     @Override
