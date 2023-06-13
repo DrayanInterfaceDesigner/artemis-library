@@ -1,13 +1,14 @@
 package artemis.game;
 
 import artemis.Vector2;
+import artemis.render.Scene;
 
 import java.awt.*;
 
 public class KinematicBody extends Body implements IEntity, IBody{
 
-    public KinematicBody(Game game, Vector2 position, double[] size) {
-        super(game, position, size);
+    public KinematicBody(Game game, Scene scene, Vector2 position, double[] size) {
+        super(game, scene, position, size);
     }
 
     public void sayHi() {

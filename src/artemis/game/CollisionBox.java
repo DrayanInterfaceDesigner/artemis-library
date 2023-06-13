@@ -3,6 +3,7 @@ package artemis.game;
 import artemis.Vector2;
 import artemis.arithmetic.ArtemisMath;
 import artemis.arithmetic.VectorOffset;
+import artemis.render.Scene;
 
 import java.awt.*;
 import java.awt.geom.Path2D;
@@ -15,13 +16,25 @@ public class CollisionBox extends Entity implements IEntity{
     public Color color;
     public ArrayList<Entity> collidingWith;
     public double lastCollisionOffset;
-    public CollisionBox(Game game, Vector2 position, double[] size, Grid collisionGrid, Entity entity) {
-        super(game, entity.center, size);
-        this.collisionGrid = collisionGrid;
+    public CollisionBox(Game game, Scene scene, Vector2 position, double[] size, Entity entity) {
+        super(game, scene, entity.center, size);
+        this.collisionGrid = this.game.getGrid();
         this.entity = entity;
         this.boundingBox = this.calcBoundingBox();
         this.collidingWith = new ArrayList<Entity>();
         this.color = new Color(0,255,0);
+    }
+
+    private int at() {
+        double rX = this.entity.position.x + this.collisionGrid.getOffset_dx();
+        double rY = this.entity.position.x + this.collisionGrid.getOffset_dy();
+        int col = (int) Math.ceil(rX / this.collisionGrid.getCellWidth()) - 1;
+        int row = (int) Math.ceil(rY / this.collisionGrid.getCellHeight()) - 1;
+        return col * row;
+    }
+    private void toCell(int at) {
+        this.entity.setCellAt(at);
+        this.collisionGrid.push(this.entity, at);
     }
     public double[][] calcBoundingBox() {
         if(this.size == null) {
@@ -122,6 +135,15 @@ public class CollisionBox extends Entity implements IEntity{
     @Override
     public void _process(double delta) {
         this.boundingBox = this.calcBoundingBox();
+        this.toCell(this.at());
+//        if(this.collisionGrid.neighboursAt(this.at()) != null){
+//            System.out.println("\n-------start-------");
+//            for(Entity e : this.collisionGrid.neighboursAt(this.at())){
+//                System.out.println("Entity: " + e + " at: " + this.at());
+//            }
+//            System.out.println("--------end---------\n");
+//        }
+//        System.out.println(this.collisionGrid.getList());
     }
     @Override
     public boolean isOnScreen() {

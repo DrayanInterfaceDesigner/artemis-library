@@ -1,14 +1,15 @@
 package artemis.game;
 
 import artemis.Vector2;
+import artemis.render.Scene;
 
 public class Animation {
     private Sprite sprite;
     public int fps;
     private String alias;
 
-    public Animation(Game game, Vector2 position, double[] size, String alias, int fps, String[] frames) {
-        this.sprite = new Sprite(game, position, size, frames);
+    public Animation(Game game, Scene scene, Vector2 position, double[] size, String alias, int fps, String[] frames) {
+        this.sprite = new Sprite(game, scene, position, size, frames);
         this.fps = fps;
         this.alias = alias;
     }

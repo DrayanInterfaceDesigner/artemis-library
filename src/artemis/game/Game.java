@@ -2,6 +2,7 @@ package artemis.game;
 
 import artemis.game.Entity;
 import artemis.render.Camera;
+import artemis.render.Scene;
 import artemis.schedule.Queue;
 import artemis.schedule.Timer;
 
@@ -23,7 +24,10 @@ public class Game implements Runnable{
     private Queue queue;
     private Camera camera;
     private int[] windowSize = {560, 440};
+    public int activeScene = 0;
     private ArrayList<Entity> entities;
+    private ArrayList<Scene> scenes;
+    private Grid collisionGrid;
 
 
     private int heyOh = 0;
@@ -32,13 +36,21 @@ public class Game implements Runnable{
         this.camera = new Camera(this.windowSize);
         this.queue = new Queue(this, this.camera);
         this.entities = new ArrayList<Entity>();
+        this.scenes = new ArrayList<>();
+        this.collisionGrid = new Grid(
+                windowSize,
+                new int[]{windowSize[0] * 2, windowSize[1] *2},
+                3
+        );
         this.timer = new Timer(1);
+        this.timeScale = 1;
 
         this.TARGET_FPS = targetFPS;
         this.currentFPS = 0;
         this.nanoPerUpdate = 1000000000.0 / TARGET_FPS;
     }
     public void run(){
+        this.switchScene(1);
         this.entities = this.flatEntities();
         for(Entity e : entities) {
             System.out.println(e);
@@ -51,7 +63,7 @@ public class Game implements Runnable{
         while(running) {
 //          Resets timers and calculate delta
             long currentTime = System.nanoTime();
-            this.delta += (currentTime - lastTime) / nanoPerUpdate;
+            this.delta += (currentTime - lastTime) / (nanoPerUpdate * timeScale);
             lastTime = currentTime;
 
 //          Updating Artemis
@@ -82,7 +94,12 @@ public class Game implements Runnable{
             }
         }
     }
-
+    public void switchScene(int index) {
+        System.out.println("switched to: " + index);
+        this.camera.getEntities().clear();
+        this.entities = this.scenes.get(index-1).getEntities();
+        this.flatEntities();
+    }
     private void update(double delta) {
         this.camera.windowSize = this.windowSize;
         this.queue.fill(this.entities);
@@ -115,6 +132,12 @@ public class Game implements Runnable{
     public int[] getWindowSize(){
         return this.windowSize;
     }
+
+    public void setWindowSize(int[] windowSize) {
+        this.windowSize = windowSize;
+        this.camera.getCanvas().setSize(this.windowSize[0], this.windowSize[1]);
+    }
+
     public Camera getCamera() {
         return camera;
     }
@@ -126,6 +149,11 @@ public class Game implements Runnable{
     public void add(Entity e) {
         if(!this.entities.contains(e)) {
             this.entities.add(e);
+        }
+    }
+    public void addScene(Scene s) {
+        if(!this.scenes.contains(s)) {
+            this.scenes.add(s);
         }
     }
     public void destroy(Entity e) {
@@ -152,6 +180,10 @@ public class Game implements Runnable{
             }
         }
         return flattened;
+    }
+
+    public Grid getGrid() {
+        return this.collisionGrid;
     }
 
 }

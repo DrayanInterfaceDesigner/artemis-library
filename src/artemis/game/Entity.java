@@ -1,21 +1,26 @@
 package artemis.game;
 
 import artemis.Vector2;
+import artemis.render.Scene;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class Entity implements IEntity{
     protected Game game;
+    protected Scene scene;
     public Vector2 position;
     public Vector2 center;
+    public boolean paused = false;
+    private int cellAt;
     protected Vector2 cameraPosition;
     private boolean hidden;
     public CollisionBox collisionBox;
     private ArrayList<Entity> children;
-    protected double[] size;
-    public Entity(Game game, Vector2 position, double[] size) {
+    public double[] size;
+    public Entity(Game game, Scene scene, Vector2 position, double[] size) {
         this.game = game;
+        this.scene = scene;
         this.position = position;
         this.size = size;
         this.center = new Vector2(
@@ -26,14 +31,16 @@ public abstract class Entity implements IEntity{
     }
 
     public void pushToGame() {
-        this.game.add(this);
+        this.scene.add(this);
     }
     public void setCameraPosition(Vector2 position) {
         this.cameraPosition = position;
     }
     public void getReady() {
         this.pushToGame();
+
 //        this.getFamilyReady();
+//        this.floorRay.getReady();
         this._onReady();
     }
     public abstract void _onReady();
@@ -79,5 +86,13 @@ public abstract class Entity implements IEntity{
     }
     public void destroy(){
         this.game.destroy(this);
+    }
+
+    public int getCellAt() {
+        return cellAt;
+    }
+
+    public void setCellAt(int cellAt) {
+        this.cellAt = cellAt;
     }
 }

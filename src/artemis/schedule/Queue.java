@@ -31,13 +31,17 @@ public class Queue {
     private void _thread_PhysicsProcess(double delta) {
         if(this.entries == null) return;
         for(Entity e : this.entries) {
-            e._physicsProcess(delta);
+            if(!e.paused){
+                e._physicsProcess(delta);
+            }
         }
     }
     private void _thread_Process(double delta) {
         if(this.entries == null) return;
         for(Entity e : this.entries) {
-            e._process(delta);
+            if(!e.paused) {
+                e._process(delta);
+            }
         }
     }
     private void _thread_Render(double delta) {

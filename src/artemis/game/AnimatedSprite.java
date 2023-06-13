@@ -1,6 +1,7 @@
 package artemis.game;
 
 import artemis.Vector2;
+import artemis.render.Scene;
 import artemis.schedule.Timer;
 
 import java.awt.*;
@@ -11,14 +12,14 @@ public class AnimatedSprite extends Entity{
     private int currentAnimation;
     private Sprite currentSprite;
     private Timer time;
-    public AnimatedSprite(Game game, Vector2 position, double[] size) {
-        super(game, position, size);
+    public AnimatedSprite(Game game, Scene scene, Vector2 position, double[] size) {
+        super(game, scene, position, size);
         this.animations = new ArrayList<>();
 
     }
     public void setAnimation(String alias, int fps, String[] frames){
         this.animations.add(
-                new Animation(this.game, this.position, this.size, alias, fps, frames)
+                new Animation(this.game, this.scene, this.position, this.size, alias, fps, frames)
         );
     }
     private void changeNextFrame() {

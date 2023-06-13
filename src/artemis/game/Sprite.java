@@ -1,6 +1,7 @@
 package artemis.game;
 
 import artemis.Vector2;
+import artemis.render.Scene;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -11,11 +12,11 @@ import java.util.ArrayList;
 
 public class Sprite extends Entity implements IEntity {
     private String[] paths;
-    private ArrayList<BufferedImage> frames;
+    public ArrayList<BufferedImage> frames;
     public int currentFrame;
 
-    public Sprite(Game game, Vector2 position, double[] size, String[] frames) {
-        super(game, position, size);
+    public Sprite(Game game, Scene scene, Vector2 position, double[] size, String[] frames) {
+        super(game, scene, position, size);
         this.paths = frames;
         this.currentFrame = 0;
         this.frames = new ArrayList<BufferedImage>();
@@ -71,6 +72,10 @@ public class Sprite extends Entity implements IEntity {
     @Override
     public boolean isOnScreen() {
         return false;
+    }
+
+    public BufferedImage getBufferedFrame(int index) {
+        return frames.get(index);
     }
 
     public int getFramesLength() {

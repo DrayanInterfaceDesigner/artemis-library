@@ -1,7 +1,13 @@
 import artemis.Vector2;
+import artemis.game.Sprite;
+import artemis.game.gui.Button;
+import artemis.game.gui.InlineText;
+import artemis.game.gui.Popup;
+import artemis.game.gui.TextArea;
 import artemis.primitives.Quad;
 import artemis.primitives.Tri;
 import artemis.game.Game;
+import artemis.render.Scene;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,14 +20,15 @@ public class Main {
 //        *Mouse ok ok
 //        Camera ok ok
 //        Sprite ok ok
-//        FixDeltaTime - -
+//        FixDeltaTime ok ok
+//        IsOnFloor ok ok
 //        AnimatedSprite ok -
 //        CollisionBox ok ok
 //        StaticBody ok ok
-//        RigidBody ok -
-//        KinematicBody ok -
+//        RigidBody ok ok
+//        KinematicBody ok ok
 //        Grid ok -
-//        GUI - Text / Button  - -
+//        GUI - Text / Button  ok -
 
 //        int scale = 150;
 //        Tri tri1 = new Tri(
@@ -40,18 +47,73 @@ public class Main {
 
 
 //        render(quad);
-        Game g = new Game(120);
+        Game g = new Game(60);
+        Scene fazOKennyG = new Scene(g);
+        Scene fiminhas = new Scene(g);
+
+        Character kirby = new Character(g, fazOKennyG, new Vector2(-50,-150), new double[]{100, 100});
+        Block block = new Block(g,  fazOKennyG , new Vector2(200,0), new double[]{200, 200});
+        Block block2 = new Block(g, fazOKennyG , new Vector2(0,0), new double[]{200, 200});
+        Kclob block3 = new Kclob(g, fazOKennyG , new Vector2(100,100), new double[]{200, 200});
+        Button btn = new Button(g,  fazOKennyG ,new Vector2(-100,-100), new double[]{20, 100}, true);
+        TextArea txt = new TextArea(g, fazOKennyG, new Vector2(58, 58), new double[]{150,300}, true);
+        Popup pp = new Popup(g, fazOKennyG, new Vector2(58, 58), new double[]{200,400}, false);
+        Sprite spt = new Sprite(g,  fazOKennyG , new Vector2(0,0), new double[] {1200, 1200},
+                new String[]{
+                        "src/test/assets/sprite.jpg",
+                        "src/test/assets/sprite2.png",
+                        "src/test/assets/sprite3.png",
+                        "src/test/assets/sprite4.jpg"
+                }
+        );
+
+//        pp.add(txt.getWrapper());
+        pp.add(btn.getButton(), txt.getWrapper());
+        pp._onReady();
+
+        btn.label = "penis";
+        txt.text = "AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH ";
+        spt.currentFrame = 1;
+        spt.getReady();
+        kirby.getReady();
+        block3.getReady();
+        block.getReady();
+        block2.getReady();
+//        btn.getReady();
+        btn.deleteButton();
+//        txt.getReady();
+//        pp.getReady();
+
+
+        Character kirby2 = new Character(g, fiminhas, new Vector2(-50,-150), new double[]{100, 100});
+        Block b2 = new Block(g, fiminhas , new Vector2(0,0), new double[]{200, 200});
+        Sprite spt2 = new Sprite(g,  fiminhas , new Vector2(0,0), new double[] {1200, 1200},
+                new String[]{
+                        "src/test/assets/sprite.jpg",
+                        "src/test/assets/sprite2.png",
+                        "src/test/assets/sprite3.png",
+                        "src/test/assets/sprite4.jpg"
+                }
+        );
+
+        spt2.currentFrame = 3;
+        spt2.getReady();
+        kirby2.getReady();
+        b2.getReady();
+
+//        g.getCamera().getGlassPane().setOpaque(false);
+
+
 //        Sprite s = new Sprite(g, new Vector3(50,50), new double[]{100, 100},
 //                new String[]{
 //                        "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite.jpg",
 //                        "C:\\Users\\draya\\Desktop\\Profile\\university\\bcc\\oop\\artemis-engine\\src\\test\\assets\\sprite2.png"
 //        });
-        Character kirby = new Character(g, new Vector2(-100,100), new double[]{100, 100});
-        Block block = new Block(g, new Vector2(100,100), new double[]{200, 200});
-        block.getReady();
-        kirby.getReady();
-//        s.pushToGame();
 //        g.add(s);
+        fazOKennyG.getReady();
+        fiminhas.getReady();
+
+
         g.start();
 
     }

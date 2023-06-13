@@ -1,15 +1,16 @@
 package artemis.game;
 
 import artemis.Vector2;
+import artemis.render.Scene;
 
 import java.awt.*;
 
 public class StaticBody extends Body implements IEntity, IBody{
 
-    public StaticBody(Game game, Vector2 position, double[] size) {
-        super(game, position, size);
+    public StaticBody(Game game, Scene scene, Vector2 position, double[] size) {
+        super(game, scene, position, size);
         this.collisionBox = new CollisionBox(
-                game, this.center, size, new Grid(), this
+                game, scene, this.center, size, this
         );
     }
 
@@ -28,10 +29,16 @@ public class StaticBody extends Body implements IEntity, IBody{
             double displacementY = Math.min(Math.abs(overlapX), Math.abs(overlapY)) * Math.signum(
                     this.position.y - other.position.y);
 
-            this.position.x += displacementX;
-            this.position.y += displacementY;
+            other.position.x -= displacementX;
+            other.position.y -= displacementY;
         }
     }
+//    private void resolve(Entity e) {
+//        double overlapX = Math.abs(this.position.x - e.position.x) - (this.size[0] + e.size[0]) / 2;
+//        if((e.position.x + e.size[0]/2) > (this.position.x - this.size[0]/2)){
+//            e.position.x -= overlapX;
+//        }
+//    }
     @Override
     public boolean isOnScreen() {
         return false;
@@ -44,9 +51,12 @@ public class StaticBody extends Body implements IEntity, IBody{
     @Override
     public void _physicsProcess(double delta) {
         super._physicsProcess(delta);
-        if(this.collisionBox.isColliding()) {
-            for(Entity e : this.collisionBox.collidingWith) {
-                this.resolveCollision(e);
+        if(this.collisionBox != null){
+            if(this.collisionBox.isColliding()) {
+                for(Entity e : this.collisionBox.collidingWith) {
+                    this.resolveCollision(e);
+//                this.resolve(e);
+                }
             }
         }
     }

@@ -3,18 +3,19 @@ import artemis.arithmetic.ArtemisMath;
 import artemis.controller.KeyControl;
 import artemis.controller.MouseControl;
 import artemis.game.*;
+import artemis.render.Scene;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class Character extends KinematicBody {
     private Sprite skin;
     private KeyControl keyboard;
     private MouseControl mouse;
     private Vector2 lastDirection;
-    public Character(Game game, Vector2 position, double[] size) {
-        super(game, position, size);
-        Vector2 center = new Vector2((int)(this.position.x - this.size[0]/2), (int)(this.position.y - this.size[1]/2));
-        this.skin = new Sprite(this.game, this.center, size, new String[]{
+    public Character(Game game, Scene scene, Vector2 position, double[] size) {
+        super(game, scene, position, size);
+        this.skin = new Sprite(this.game, scene, this.center, size, new String[]{
                 "src/test/assets/sprite.jpg",
                 "src/test/assets/sprite2.png",
                 "src/test/assets/sprite3.png",
@@ -22,9 +23,16 @@ public class Character extends KinematicBody {
         });
         this.keyboard = new KeyControl(this.game);
         this.mouse = new MouseControl(this.game);
-        this.collisionBox = new CollisionBox(game, this.position, size, new Grid(), this);
+        this.collisionBox = new CollisionBox(game, scene, this.position, size, this);
         this.addChild(this.skin);
         this.addChild(this.collisionBox);
+    }
+
+    @Override
+    public void getReady() {
+        super.getReady();
+        this.skin.getReady();
+        this.collisionBox.getReady();
     }
 
     @Override
@@ -36,26 +44,31 @@ public class Character extends KinematicBody {
         keyboard.registerKey('a');
         keyboard.registerKey('s');
         keyboard.registerKey('d');
+        keyboard.registerKey('m');
+        keyboard.registerKey(' ');
         mouse.registerButton("left", 1);
         mouse.registerButton("ehofimas", 3);
     }
 
     @Override
     public void _physicsProcess(double delta) {
-        int speed = 5;
+        int speed = 15;
         super._physicsProcess(delta);
 //        System.out.println(mouse.clicked("left"));
 
-
+        if(keyboard.keyJustReleased('m')) {
+            this.game.getCamera().getGlassPane().setVisible(
+                    !this.game.getCamera().getGlassPane().isVisible()
+            );
+        }
         if(mouse.clicked("left")) {
-            Vector2 pos = mouse.getClickPosition();
-            this.lastDirection = new Vector2(pos.x, pos.y);
+            this.game.switchScene(2);
+            System.out.println(this.game.getEntities());
+//            Vector2 pos = mouse.getClickPosition();
+//            this.lastDirection = new Vector2(pos.x, pos.y);
         }
 
         if(keyboard.isKeyPressed('w')) {
-            this.hide(true);
-            this.skin.hide(true);
-            System.out.println(this.skin.isHidden());
             System.out.println("pressed");
             this.position.y -= (speed);
         }
@@ -68,6 +81,14 @@ public class Character extends KinematicBody {
         if(keyboard.isKeyPressed('d')) {
             this.position.x += (speed);
         }
+        if(keyboard.keyJustReleased(' ')) {
+            this.position.y -= 1000;
+        }
+
+        if(!this.isOnFloor()) {
+//            this.position.y+=30;
+        }
+
 //        if(keyboard.isKeyPressed('d')) {
 ////            this.position.x += (1* speed);
 ////        }

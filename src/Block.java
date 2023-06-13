@@ -1,19 +1,21 @@
 import artemis.Vector2;
 import artemis.game.*;
+import artemis.render.Scene;
 
 import java.awt.*;
 
 public class Block extends StaticBody {
     private Sprite skin;
-    public Block(Game game, Vector2 position, double[] size) {
-        super(game, position, size);
-        this.skin = new Sprite(this.game, this.center, size, new String[]{
+    public Block(Game game, Scene scene, Vector2 position, double[] size) {
+        super(game, scene, position, size);
+        this.skin = new Sprite(this.game, this.scene, this.center, size, new String[]{
                 "src/test/assets/sprite.jpg",
                 "src/test/assets/sprite2.png",
                 "src/test/assets/sprite3.png",
                 "src/test/assets/sprite4.jpg"
         });
-        this.collisionBox = new CollisionBox(game, this.center, size, new Grid(), this);
+        this.collisionBox = new CollisionBox(game, this.scene, this.center, size, this);
+        this.addChild(this.skin);
     }
 
     @Override
