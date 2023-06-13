@@ -59,18 +59,26 @@ public class SimpleCharacter extends KinematicBody implements Serializable {
         super._physicsProcess(delta);
         ArtemisMath math = new ArtemisMath();
         Vector2 move = new Vector2(0,0);
+        this.skin.currentFrame = 0;
 
         if(keyboard.isKeyPressed('w')) {
             move.y = -1;
+            this.skin.currentFrame = 1;
         }
         if(keyboard.isKeyPressed('s')) {
             move.y = 1;
+            this.skin.currentFrame = 1;
         }
         if(keyboard.isKeyPressed('a')) {
             move.x = -1;
+            this.skin.currentFrame = 1;
         }
         if(keyboard.isKeyPressed('d')) {
             move.x = 1;
+            this.skin.currentFrame = 1;
+        }
+        if(keyboard.isKeyPressed(' ')) {
+            this.skin.currentFrame = 2;
         }
 
         this.velocity.add(move);

@@ -15,12 +15,32 @@ public class SimpleMainScene extends Scene {
     @Override
     public void setup() {
         super.setup();
-        StoryPopup popup = new StoryPopup(
+        StoryPopup popup_tutorial = new StoryPopup(
                 this.game,
                 this,
                 new Vector2(0,0),
                 new double[]{100,200},
                 false
+        );
+        SimplePopup popup = new SimplePopup(
+                this.game,
+                this,
+                new Vector2(0,0),
+                new double[]{100,200},
+                false,
+                "Achados & Perdidos",
+                "Voce achou um coco triste!",
+                "Veja o que ele tem a dizer."
+        );
+        SimplePopup popup2 = new SimplePopup(
+                this.game,
+                this,
+                new Vector2(100,100),
+                new double[]{100,200},
+                false,
+                "Achados & Perdidos",
+                "Vaaaaaaaa!",
+                "Vsssssssssssssssser."
         );
         SimpleCharacter character = new SimpleCharacter(
                 this.game,
@@ -72,20 +92,35 @@ public class SimpleMainScene extends Scene {
                 "horizontal"
         );
 
+        SimpleInteractable interactable = new SimpleInteractable(
+                this.game,
+                this,
+                new Vector2(600,800),
+                new double[]{136,256},
+                popup
+        );
+
         background.getReady();
         left.getReady();
         right.getReady();
         top.getReady();
         bottom.getReady();
         popup.getReady();
+        popup2.getReady();
+        popup_tutorial.getReady();
+        interactable.getReady();
         character.getReady();
 
+        this.add(popup_tutorial);
+        this.add(popup2);
         this.add(popup);
         this.add(character);
         this.add(left);
         this.add(right);
         this.add(top);
         this.add(bottom);
+        this.add(interactable);
         this.add(background);
+        this.game.getCamera().getGlassPane().setVisible(true);
     }
 }

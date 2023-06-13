@@ -10,25 +10,30 @@ import artemis.render.Scene;
 public class StoryPopup extends Popup {
     public StoryPopup(Game game, Scene scene, Vector2 position, double[] size, boolean onGlass) {
         super(game, scene, position, size, onGlass);
+        this.setVisibility(true);
     }
 
     @Override
     public void setup() {
         super.setup();
-        this.setLabel("Story");
-        ChangeSceneButton btn = new ChangeSceneButton(
-                this.game,this.scene ,new Vector2(-100,-100), new double[]{20, 100}, true
-        );
+        this.setVisibility(true);
+        this.setLabel("Tutorial");
+//        ChangeSceneButton btn = new ChangeSceneButton(
+//                this.game,this.scene ,new Vector2(-100,-100), new double[]{20, 100}, true
+//        );
         TextArea txt = new TextArea(
-                this.game, this.scene, new Vector2(58, 58), new double[]{150,300}, true
+                this.game, this.scene, new Vector2(58, 58), new double[]{150,60}, true
         );
 
-        btn.label = "Next Phase";
-        txt.text = "AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH AOOOOOOOHHHH ";
+        txt.text = "Ao encontrar qualquer coisa por aí, tente apertar E para interagir.\n\n" +
+                "As teclas W A S D movem a personagem.\n\n" +
+                "Esse jogo simples guarda a fase em que está com permanência de objeto. \n\n" +
+                "Você pode mudar de fase encontrando a banheira e interagindo com ela.";
+//        btn.label = "Entendi";
 
-        btn.getReady();
         txt.getReady();
+//        btn.getReady();
 
-        this.add(btn.getButton(), txt.getWrapper());
+        this.add(txt.getWrapper());
     }
 }

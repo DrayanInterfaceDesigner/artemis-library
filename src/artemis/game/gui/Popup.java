@@ -72,7 +72,14 @@ public class Popup extends GUI implements IPopup{
         });
 
         this.popup.add(this.scrollContainer);
-        this.game.getCamera().getCanvas().setGlassPane(glass);
+        if(!this.onGlass) {
+            this.game.getCamera().getCanvas().setGlassPane(glass);
+        }
+        else {
+            this.game.getCamera().getGlassPane().setLayout(new BorderLayout());
+            this.game.getCamera().getGlassPane().add(glass, BorderLayout.CENTER);
+            this.game.getCamera().getGlassPane().setVisible(true);
+        }
 //        this.game.getCamera().getGlassPane().add(glass);
 
     }
@@ -83,6 +90,7 @@ public class Popup extends GUI implements IPopup{
     }
 
     public void setVisibility(boolean b) {
+        this.game.getCamera().getCanvas().setGlassPane(this.glass);
         this.glass.setVisible(b);
     }
 
