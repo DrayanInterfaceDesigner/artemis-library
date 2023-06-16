@@ -6,7 +6,9 @@ import Examples.simpleGame.scenes.SimplePhaseScene;
 
 public class RunSimpleGame {
     public static void main(String[] args) {
+
         SimpleGame theSimpleGame = new SimpleGame(60);
+
         theSimpleGame.getCamera().getCanvas().setTitle("The Simple Game");
         theSimpleGame.setWindowSize(new int[]{800, 600});
         theSimpleGame.getCamera().getGlassPane().setOpaque(false);

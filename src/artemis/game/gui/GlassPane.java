@@ -33,6 +33,6 @@ public class GlassPane extends GUI{
 
     @Override
     public void render(Graphics2D ctx) {
-
+        super.render(ctx);
     }
 }

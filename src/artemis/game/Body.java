@@ -53,5 +53,5 @@ public abstract class Body extends Entity implements IEntity, IBody{
     public void _process(double delta) {}
 
     @Override
-    public void render(Graphics2D ctx) {}
+    public void render(Graphics2D ctx) {if(isHidden()) return;}
 }

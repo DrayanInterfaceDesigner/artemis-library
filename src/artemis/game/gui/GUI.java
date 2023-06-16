@@ -5,6 +5,8 @@ import artemis.game.Entity;
 import artemis.game.Game;
 import artemis.render.Scene;
 
+import java.awt.*;
+
 public abstract class GUI extends Entity {
     private String _fontFamily;
     protected boolean onGlass;
@@ -15,4 +17,8 @@ public abstract class GUI extends Entity {
 
     }
 
+    @Override
+    public void render(Graphics2D ctx) {
+        if(isHidden()) return;
+    }
 }

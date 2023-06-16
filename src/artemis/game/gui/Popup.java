@@ -90,8 +90,25 @@ public class Popup extends GUI implements IPopup{
     }
 
     public void setVisibility(boolean b) {
-        this.game.getCamera().getCanvas().setGlassPane(this.glass);
-        this.glass.setVisible(b);
+        Container glassPane = (Container) this.game.getCamera().getCanvas().getGlassPane();
+        boolean hasVisibleComponent = checkVisibleComponents(glassPane);
+
+        if (hasVisibleComponent) {
+            this.game.getCamera().getCanvas().setGlassPane(this.glass);
+            this.glass.setVisible(true);
+        }
+    }
+
+    public boolean checkVisibleComponents(Container container) {
+        Component[] components = container.getComponents();
+
+        for (Component component : components) {
+            if (component.isVisible()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void setLabel(String label) {
@@ -149,6 +166,6 @@ public class Popup extends GUI implements IPopup{
 
     @Override
     public void render(Graphics2D ctx) {
-
+        super.render(ctx);
     }
 }

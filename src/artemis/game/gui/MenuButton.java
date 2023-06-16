@@ -11,22 +11,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.concurrent.atomic.AtomicBoolean;
-public class Button extends GUI {
+
+public class MenuButton extends GUI{
     public String label;
     private Sprite _backgroundImage;
-    private JButton button;
+    private JMenuItem button;
     private boolean hasClicked;
     private boolean isPressed;
     private boolean hasReleased;
     private boolean hasEntered;
     private boolean hasExited;
 
-    public Button(Game game, Scene scene, Vector2 position, double[] size, boolean onGlass) {
+    public MenuButton(Game game, Scene scene, Vector2 position, double[] size, boolean onGlass) {
         super(game, scene, position, size, onGlass);
         this.label = "";
         this.onGlass = onGlass;
-        this.button = new JButton(this.label);
+        this.button = new JMenuItem(this.label);
         if (onGlass) {
             this.game.getCamera().getGlassPane().add(this.button);
         }
@@ -142,8 +142,7 @@ public class Button extends GUI {
         }
     }
 
-    public JButton getButton() {
+    public JMenuItem getButton() {
         return button;
     }
-
 }

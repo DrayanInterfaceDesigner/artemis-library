@@ -3,13 +3,17 @@ package Examples.simpleGame.scenes;
 import Examples.simpleGame.components.StoryPopup;
 import Examples.simpleGame.entities.*;
 import artemis.Vector2;
+import artemis.game.Barrier;
 import artemis.game.Game;
+import artemis.game.gui.Button;
+import artemis.game.gui.Menu;
 import artemis.render.Scene;
+
+import javax.swing.*;
 
 public class SimpleMainScene extends Scene {
     public SimpleMainScene(Game g) {
         super(g);
-
     }
 
     @Override
@@ -100,6 +104,26 @@ public class SimpleMainScene extends Scene {
                 popup
         );
 
+        SimpleMenu menu = new SimpleMenu(
+                this.game,
+                this,
+                new Vector2(20,90),
+                new double[]{100,200},
+                false
+        );
+
+//        menu.addDropdown("Developer", new int[] {0}, new JMenuItem("Debug Mode"),
+//                new JMenuItem("Generate Scene Exception"));
+//        menu.addDropdown("Game", new int[] {0}, new JMenuItem("Show FPS"),
+//                new JMenuItem("Tutorial"));
+//        menu.t("ss", null, new Button(
+//                this.game,
+//                this,
+//                new Vector2(0,0),
+//                new double[]{0,0},
+//                false
+//        ));
+
         background.getReady();
         left.getReady();
         right.getReady();
@@ -110,8 +134,10 @@ public class SimpleMainScene extends Scene {
         popup_tutorial.getReady();
         interactable.getReady();
         character.getReady();
-
+        menu.getReady();
+        
         this.add(popup_tutorial);
+        this.add(menu);
         this.add(popup2);
         this.add(popup);
         this.add(character);

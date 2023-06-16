@@ -134,6 +134,13 @@ public class CollisionBox extends Entity implements IEntity{
     }
     @Override
     public void _process(double delta) {
+
+        if(!this.game.isDebugOn()) {
+            this.hide(true);
+        } else {
+            this.hide(false);
+        }
+
         this.boundingBox = this.calcBoundingBox();
         this.toCell(this.at());
 //        if(this.collisionGrid.neighboursAt(this.at()) != null){
@@ -152,7 +159,7 @@ public class CollisionBox extends Entity implements IEntity{
 
     @Override
     public void render(Graphics2D ctx) {
-
+        if(isHidden()) return;
         for(int p = 1; p < this.boundingBox.length + 1; p++){
             int i = p > (this.boundingBox.length -1) ? 0 : p;
             Path2D path = new Path2D.Double();

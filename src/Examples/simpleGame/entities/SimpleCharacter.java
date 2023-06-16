@@ -71,10 +71,12 @@ public class SimpleCharacter extends KinematicBody implements Serializable {
         }
         if(keyboard.isKeyPressed('a')) {
             move.x = -1;
+            this.skin.flipH = true;
             this.skin.currentFrame = 1;
         }
         if(keyboard.isKeyPressed('d')) {
             move.x = 1;
+            this.skin.flipH = false;
             this.skin.currentFrame = 1;
         }
         if(keyboard.isKeyPressed(' ')) {

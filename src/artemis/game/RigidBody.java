@@ -13,7 +13,7 @@ public class RigidBody extends Body implements IEntity, IBody{
     }
 
 
-    private void resolveCollision(Entity other) {
+    protected void resolveCollision(Entity other) {
         if(!isHighlyReactive) {
             double overlapX = Math.abs(this.position.x - other.position.x) - (this.size[0] + other.size[0]) / 2;
             double overlapY = Math.abs(this.position.y - other.position.y) - (this.size[1] + other.size[1]) / 2;

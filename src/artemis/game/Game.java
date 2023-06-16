@@ -1,6 +1,8 @@
 package artemis.game;
 
-import artemis.game.Entity;
+import artemis.Vector2;
+import artemis.exception.SceneOutOfRange;
+import artemis.game.gui.InlineText;
 import artemis.render.Camera;
 import artemis.render.Scene;
 import artemis.schedule.Queue;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 public class Game implements Runnable{
     private final int TARGET_FPS;
     private int currentFPS;
+    private int lastSecondFPS;
     private long currentTime;
     private long lastTime;
     private long FPSCountTimer;
@@ -18,7 +21,7 @@ public class Game implements Runnable{
     private double timeScale;
     private double delta;
     private volatile boolean running;
-    private boolean debug;
+    private boolean debugMode;
     private Thread MAIN_THREAD;
     private Timer timer;
     private Queue queue;
@@ -31,6 +34,8 @@ public class Game implements Runnable{
 
 
     private int heyOh = 0;
+    private boolean onScreenFPS;
+    private InlineText FPSDisplay;
 
     public Game(int targetFPS){
         this.camera = new Camera(this.windowSize);
@@ -48,6 +53,9 @@ public class Game implements Runnable{
         this.TARGET_FPS = targetFPS;
         this.currentFPS = 0;
         this.nanoPerUpdate = 1000000000.0 / TARGET_FPS;
+
+        this.debugMode = false;
+        this.onScreenFPS = false;
     }
     public void run(){
         this.switchScene(1);
@@ -75,6 +83,7 @@ public class Game implements Runnable{
 //          Updating current FPS
             currentFPS++;
             if (System.currentTimeMillis() - FPSCountTimer > 1000) {
+                lastSecondFPS = currentFPS;
                 System.out.println("FPS: " + currentFPS);
                 currentFPS = 0;
                 heyOh =0;
@@ -95,10 +104,17 @@ public class Game implements Runnable{
         }
     }
     public void switchScene(int index) {
-        System.out.println("switched to: " + index);
-        this.camera.getEntities().clear();
-        this.entities = this.scenes.get(index-1).getEntities();
-        this.flatEntities();
+        try {
+            if (index < 1 || index > this.scenes.size()) {
+                throw new SceneOutOfRange("Scene index is out of range.");
+            }
+            System.out.println("switched to: " + index);
+            this.camera.getEntities().clear();
+            this.entities = this.scenes.get(index-1).getEntities();
+            this.flatEntities();
+        } catch (SceneOutOfRange e) {
+            e.printStackTrace();
+        }
     }
     private void update(double delta) {
         this.camera.windowSize = this.windowSize;
@@ -186,4 +202,24 @@ public class Game implements Runnable{
         return this.collisionGrid;
     }
 
+    public boolean isDebugOn() {
+        return debugMode;
+    }
+
+    public void setDebugMode(boolean debugMode) {
+        this.debugMode = debugMode;
+    }
+
+    public void showFPS(boolean b) {
+        if(b) {
+            this.onScreenFPS = true;
+        }
+        else {
+            this.onScreenFPS = false;
+        }
+
+    }
+    public int getCurrentFPS() {
+        return lastSecondFPS;
+    }
 }
