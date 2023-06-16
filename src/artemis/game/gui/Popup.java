@@ -34,7 +34,7 @@ public class Popup extends GUI implements IPopup{
         this.popup = new JPanel();
         this.popup.setLayout(new BorderLayout());
         this.popup.setBackground(Color.WHITE);
-        this.popup.setBounds(100, 100, 200, 300);
+        this.popup.setBounds((int) this.position.x, (int) this.position.y, (int)this.size[0], (int)this.size[1]);
         this.popup.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         this.titleLabel = new JLabel("Draggable Popup");

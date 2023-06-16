@@ -1,15 +1,13 @@
 package Examples.simpleGame.scenes;
 
 import Examples.simpleGame.components.StoryPopup;
+import Examples.simpleGame.components.TablePopup;
 import Examples.simpleGame.entities.*;
+import Examples.simpleGame.utils.CSVManager;
+import Examples.simpleGame.utils.DATManager;
 import artemis.Vector2;
-import artemis.game.Barrier;
 import artemis.game.Game;
-import artemis.game.gui.Button;
-import artemis.game.gui.Menu;
 import artemis.render.Scene;
-
-import javax.swing.*;
 
 public class SimpleMainScene extends Scene {
     public SimpleMainScene(Game g) {
@@ -22,30 +20,33 @@ public class SimpleMainScene extends Scene {
         StoryPopup popup_tutorial = new StoryPopup(
                 this.game,
                 this,
-                new Vector2(0,0),
-                new double[]{100,200},
+                new Vector2(this.game.getWindowSize()[0]/2 - 200,this.game.getWindowSize()[1]/2 - 200),
+                new double[]{400,400},
                 false
         );
         SimplePopup popup = new SimplePopup(
                 this.game,
                 this,
-                new Vector2(0,0),
-                new double[]{100,200},
+                new Vector2(this.game.getWindowSize()[0]/2 - 200,this.game.getWindowSize()[1]/2 - 150),
+                new double[]{400, 300},
                 false,
                 "Achados & Perdidos",
                 "Voce achou um coco triste!",
                 "Veja o que ele tem a dizer."
         );
-        SimplePopup popup2 = new SimplePopup(
+
+        CSVManager csv = new CSVManager("src/Examples/simpleGame/persistent/nicethings.csv");
+        csv.read();
+
+        TablePopup popup2 = new TablePopup(
                 this.game,
                 this,
-                new Vector2(100,100),
-                new double[]{100,200},
+                new Vector2(200,50),
+                new double[]{500, 400},
                 false,
-                "Achados & Perdidos",
-                "Vaaaaaaaa!",
-                "Vsssssssssssssssser."
+                csv.rows
         );
+
         SimpleCharacter character = new SimpleCharacter(
                 this.game,
                 this,
@@ -96,20 +97,41 @@ public class SimpleMainScene extends Scene {
                 "horizontal"
         );
 
-        SimpleInteractable interactable = new SimpleInteractable(
+        SimpleInteractableToilet toilet = new SimpleInteractableToilet(
                 this.game,
                 this,
                 new Vector2(600,800),
                 new double[]{136,256},
                 popup
         );
+        SimpleInteractablePaper paper = new SimpleInteractablePaper(
+                this.game,
+                this,
+                new Vector2(1000,950),
+                new double[]{80,80},
+                popup2
+        );
+        SimpleManoelGomes manoel = new SimpleManoelGomes(
+                this.game,
+                this,
+                new Vector2(450,650),
+                new double[] {200,200}
+        );
+
+        SimpleTileSprite.SimpleSerializable m = new SimpleTileSprite.SimpleSerializable(
+                "heeeey im DAT!"
+        );
+
+        DATManager dat = new DATManager("src/Examples/simpleGame/persistent/button.dat");
 
         SimpleMenu menu = new SimpleMenu(
                 this.game,
                 this,
                 new Vector2(20,90),
                 new double[]{100,200},
-                false
+                false,
+                dat,
+                m
         );
 
 //        menu.addDropdown("Developer", new int[] {0}, new JMenuItem("Debug Mode"),
@@ -132,7 +154,10 @@ public class SimpleMainScene extends Scene {
         popup.getReady();
         popup2.getReady();
         popup_tutorial.getReady();
-        interactable.getReady();
+        toilet.getReady();
+        paper.getReady();
+        manoel.getReady();
+
         character.getReady();
         menu.getReady();
 
@@ -140,12 +165,14 @@ public class SimpleMainScene extends Scene {
         this.add(menu);
         this.add(popup2);
         this.add(popup);
+        this.add(paper);
         this.add(character);
         this.add(left);
         this.add(right);
         this.add(top);
         this.add(bottom);
-        this.add(interactable, background);
+        this.add(manoel);
+        this.add(toilet, background);
         this.game.getCamera().getGlassPane().setVisible(true);
     }
 }

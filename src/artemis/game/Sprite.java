@@ -9,9 +9,10 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Sprite extends Entity implements IEntity {
+public class Sprite extends Entity implements IEntity, Serializable {
     private String[] paths;
     public ArrayList<BufferedImage> frames;
     public int currentFrame;

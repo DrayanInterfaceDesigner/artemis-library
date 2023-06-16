@@ -1,31 +1,33 @@
 package Examples.simpleGame.entities;
 
-import Examples.simpleGame.components.StoryPopup;
+import Examples.simpleGame.components.TablePopup;
+import Examples.simpleGame.utils.TxtManager;
 import artemis.Vector2;
 import artemis.controller.KeyControl;
-import artemis.game.Body;
-import artemis.game.CollisionBox;
-import artemis.game.Game;
-import artemis.game.Sprite;
-import artemis.game.gui.Popup;
+import artemis.game.*;
 import artemis.render.Scene;
 
 import java.awt.*;
 import java.io.Serializable;
 
-public class SimpleInteractable extends Body implements Serializable {
+public class SimpleInteractablePaper extends Body implements Serializable {
     private Sprite skin;
-    private SimplePopup popup;
+    private TablePopup popup;
     private KeyControl keyboard;
-    public SimpleInteractable(Game game, Scene scene, Vector2 position, double[] size, SimplePopup popup) {
+    private String txt;
+    public SimpleInteractablePaper(Game game, Scene scene, Vector2 position, double[] size, TablePopup popup) {
         super(game, scene, position, size);
         this.skin = new Sprite(game, scene, this.center, size, new String[] {
-                "src/Examples/simpleGame/assets/toilet/toilet.png",
-                "src/Examples/simpleGame/assets/toilet/toilet_2.png"
+                "src/Examples/simpleGame/assets/paper/keanedpaper.png",
+                "src/Examples/simpleGame/assets/paper/openedpaper.png"
         });
         this.collisionBox = new CollisionBox(game, scene, this.center, size, this);
         this.popup = popup;
         this.keyboard = new KeyControl(game);
+
+        TxtManager txt = new TxtManager("src/Examples/simpleGame/persistent/poudialog.txt");
+        txt.read();
+        this.txt = txt.getContent();
     }
 
     @Override
@@ -52,11 +54,6 @@ public class SimpleInteractable extends Body implements Serializable {
 
     @Override
     public void _process(double delta) {
-        if(this.popup.button.clicked()) {
-            this.popup.text.getTextArea().setText(
-                    "Esse eh um texto carregado na memoria, de mil caracteres, char-by-char.\n"
-            );
-        }
     }
 
     @Override
