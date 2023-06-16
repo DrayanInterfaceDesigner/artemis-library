@@ -135,7 +135,7 @@ public class SimpleMainScene extends Scene {
         interactable.getReady();
         character.getReady();
         menu.getReady();
-        
+
         this.add(popup_tutorial);
         this.add(menu);
         this.add(popup2);
@@ -145,8 +145,7 @@ public class SimpleMainScene extends Scene {
         this.add(right);
         this.add(top);
         this.add(bottom);
-        this.add(interactable);
-        this.add(background);
+        this.add(interactable, background);
         this.game.getCamera().getGlassPane().setVisible(true);
     }
 }

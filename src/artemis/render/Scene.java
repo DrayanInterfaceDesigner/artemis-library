@@ -35,6 +35,14 @@ public class Scene implements IScene{
         }
     }
 
+    public void add(Entity... es) {
+        for(Entity e : es) {
+            if(!this.entities.contains(e)) {
+                this.entities.add(e);
+            }
+        }
+    }
+
     public ArrayList<Entity> getEntities() {
         return entities;
     }
