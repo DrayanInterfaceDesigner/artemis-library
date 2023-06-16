@@ -206,7 +206,7 @@ public class SimpleMenu extends Menu {
 
         if(this.loadButton.clicked()) {
             try{
-                SimpleTileSprite.SimpleSerializable item = (SimpleTileSprite.SimpleSerializable) this.dat.read("src/Examples/simpleGame/persistent/button.dat");
+                SimpleSerializable item = (SimpleSerializable) this.dat.read("src/Examples/simpleGame/persistent/button.dat");
                 item.ressurected +=  1;
                 this.button = item;
                 item.setText("Im here, from dat!!! Resurrected " + item.ressurected + "times!!!");

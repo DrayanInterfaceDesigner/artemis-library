@@ -118,7 +118,7 @@ public class SimpleMainScene extends Scene {
                 new double[] {200,200}
         );
 
-        SimpleTileSprite.SimpleSerializable m = new SimpleTileSprite.SimpleSerializable(
+        SimpleSerializable m = new SimpleSerializable(
                 "heeeey im DAT!"
         );
 
